@@ -164,7 +164,6 @@ LoadEverything().then(() => {
       ].entries()) {
         for (const [p, player] of [team.player["1"]].entries()) {
           if (player) {
-            console.log("TTTT" , await Transcript(player.name))
             SetInnerHtml(
               $(`.p${t + 1}.container .name`),
               `
