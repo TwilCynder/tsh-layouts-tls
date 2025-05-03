@@ -20,6 +20,8 @@ var Update = async (event) => {
   console.log("Update(): Implement me");
 };
 
+var update_delay = 64
+
 // Wrapper for the update call
 async function UpdateWrapper(event) {
   await Update(event);
@@ -47,9 +49,16 @@ async function UpdateData() {
     oldData = data;
     data = await getData();
 
+    console.log("TSH UPDATE");
+    console.log(data.timestamp <= oldData.timestamp)
+    console.log(data.timestamp)
     if(data.timestamp <= oldData.timestamp){
-      return
+        return
     }
+
+    //if(JSON.stringify(data) == JSON.stringify(oldData)){
+    //  return
+    //}
 
     let event = new CustomEvent("tsh_update");
     event.data = data;
@@ -133,7 +142,7 @@ async function UpdateData_SocketIO() {
 
 // Load libraries sequentially (to respect dependencies)
 // Then call InitAll
-async function LoadEverything() {
+async function LoadEverything(callback) {
   let libPath = "../include/";
   let scripts = [
     "jquery-3.7.1.min.js",
@@ -180,11 +189,12 @@ async function LoadEverything() {
 
   console.log("== Loading complete ==");
 
-  await InitAll();
+
+  return await InitAll(callback);
 }
 
 // Initialize libraries
-async function InitAll() {
+async function InitAll(callback) {
   await LoadSettings();
 
   if (tsh_settings.automatic_theme) {
@@ -192,6 +202,9 @@ async function InitAll() {
   }
 
   await LoadKuroshiro();
+
+  console.log("CALLBACK")
+  if (callback) callback();
 
   if(window.location.protocol === 'file:' || window.location.host === 'absolute') {
     setInterval(async () => {
@@ -251,7 +264,6 @@ async function LoadSettings() {
   }
 
   tsh_settings = _.defaultsDeep(file_settings, global_settings);
-  console.log(tsh_settings);
 }
 
 // Registers element for content fitting inside div if the div is resized
@@ -310,6 +322,15 @@ async function Transcript(text) {
   if (text == null || text.length == 0 || !settings.enabled) return text;
 
   try {
+    console.log("KUROSHIRO =====")
+    console.log(text, window.Kuroshiro.default.Util.hasJapanese(text))
+    console.log(window.Kuroshiro.default.Util.hasJapanese("Ganymède"))
+    console.log("Ganymède".length)
+    for (let i = 0; i < text.length; i++){
+      console.log(text.codePointAt(i));
+    }
+    console.log("================")
+
     if (window.Kuroshiro.default.Util.hasJapanese(text)) {
       return window.kuroshiro
         .convert(text, {
