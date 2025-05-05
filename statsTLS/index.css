@@ -1,11 +1,11 @@
 @font-face {
     font-family: "Dosis";
-    src: url("../../RessourcesTLS/common/Fonts/dosis-semibold_[fr.allfont.net].ttf");
+    src: url("../../../Assets/common/Fonts/dosis-semibold_[fr.allfont.net].ttf");
 }
 
 @font-face {
 font-family: "Gobold";
-src: url("../../RessourcesTLS/common/Fonts/Gobold\ Regular.otf");
+src: url("../../../Assets/common/Fonts/Gobold\ Regular.otf");
 }
 
 .stat_line {

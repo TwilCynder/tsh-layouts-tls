@@ -259,7 +259,7 @@ body {
 }
 
 #logo-tls {
-  background-image: url("../../RessourcesTLS/common/Overlay/Logo.png");
+  background-image: url("../../../Assets/common/Overlay/Logo.png");
 }
 
 #logo-ogc {
@@ -275,7 +275,7 @@ body {
 #logo-soc {
   width: 150px;
   height: 150px;
-  background-image: url("../../RessourcesTLS/SOC/Overlay/Logo.png");
+  background-image: url("../../../Assets/SOC/Overlay/Logo.png");
 }
 
 .info.container {

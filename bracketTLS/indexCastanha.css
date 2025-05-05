@@ -220,7 +220,7 @@ body {
 .logo {
   width: 120px;
   height: 120px;
-  background-image: url("../../RessourcesTLS/common/Overlay/Logo.png");
+  background-image: url("../../../Assets/common/Overlay/Logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

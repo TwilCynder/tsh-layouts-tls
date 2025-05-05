@@ -1,6 +1,6 @@
 @font-face {
     font-family: "FPTHeavy";
-    src: url("../../RessourcesTLS/MW4/Fonts/Futura\ PT\ Heavy.ttf");
+    src: url("../../../Assets/MW4/Fonts/Futura\ PT\ Heavy.ttf");
 }
 
 body {
@@ -225,7 +225,7 @@ body {
   }
   
   #logo-tls {
-    background-image: url("../../RessourcesTLS/common/Overlay/Logo.png");
+    background-image: url("../../../Assets/common/Overlay/Logo.png");
   }
   
   #logo-ogc {
@@ -241,7 +241,7 @@ body {
   #logo-soc {
     width: 150px;
     height: 150px;
-    background-image: url("../../RessourcesTLS/HaB/th.png");
+    background-image: url("../../../Assets/HaB/th.png");
   }
   
   .info.container {

@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Medieval";
-  src: url("../../RessourcesTLS/RetourDuRoi/Fonts/MedievalSharp-Regular.ttf");
+  src: url("../../../Assets/RetourDuRoi/Fonts/MedievalSharp-Regular.ttf");
 }
 
 :root {
@@ -40,7 +40,7 @@ body {
   overflow: hidden;
   /*border-radius: 12px;*/
   background-size: 100% 100%;
-  background-image: url("../../RessourcesTLS/RetourDuRoi/Overlay/Caster.png");
+  background-image: url("../../../Assets/RetourDuRoi/Overlay/Caster.png");
   font-family: Medieval;
 }
 

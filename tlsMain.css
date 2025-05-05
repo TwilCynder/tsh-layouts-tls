@@ -1,11 +1,11 @@
 @font-face {
     font-family: "Gobold";
-    src: url("../RessourcesTLS/common/Fonts/Gobold\ Extra1.otf");
+    src: url("../../Assets/common/Fonts/Gobold\ Extra1.otf");
 }
 
 @font-face {
     font-family: "Dosis";
-    src: url("../RessourcesTLS/common/Fonts/dosis.ttf");
+    src: url("../../Assets/common/Fonts/dosis.ttf");
 }
 
 .absol {
@@ -62,9 +62,9 @@
 }
 
 #logo-tls {
-    background-image: url("../RessourcesTLS/common/Overlay/Logo.png");
+    background-image: url("../../Assets/common/Overlay/Logo.png");
 }
 
 #logo-castanha-bg {
-    background-image: url("../RessourcesTLS/Castanha/LOGO\ ENTOURE.png");
+    background-image: url("../../Assets/Castanha/LOGO\ ENTOURE.png");
 }

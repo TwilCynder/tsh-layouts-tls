@@ -15,12 +15,12 @@
 
 @font-face {
   font-family: "SriRacha";
-  src: url("../../RessourcesTLS/SF6/Font/Sriracha-Regular.ttf") format("truetype");
+  src: url("../../../Assets/SF6/Font/Sriracha-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Grafiti";
-  src: url("../../RessourcesTLS/SF6/Font/AttackGraffiti-3zRBM.ttf ") format("truetype");
+  src: url("../../../Assets/SF6/Font/AttackGraffiti-3zRBM.ttf ") format("truetype");
 }
 
 body {
