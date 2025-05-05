@@ -5,10 +5,10 @@ LoadEverything().then(() => {
 
   gsap.config({ nullTargetWarn: false, trialWarn: false });
 
-  let startingAnimation = gsap.timeline({ paused: true });
+  //let startingAnimation = gsap.timeline({ paused: true });
 
   Start = async (event) => {
-    startingAnimation.start();
+    //startingAnimation.start();
   };
 
   function getNumberOrdinal(n) {
@@ -28,6 +28,7 @@ LoadEverything().then(() => {
     ) {
       console.log("-----------------------------")
       console.log(data.score[1].history_sets, window.PLAYER);
+      let startingAnimation = gsap.timeline({ paused: true });
 
       tournament_html = "";
       Object.values(data.score[1].history_sets[window.PLAYER])
@@ -82,14 +83,15 @@ LoadEverything().then(() => {
               tournament.placement
             )}</span><span class="num_entrants">/${tournament.entrants}</span>`
         );
-        startingAnimation = gsap.timeline({ paused: true });
         startingAnimation.from(
           $(`.tournament${s + 1}`),
           { x: -100, autoAlpha: 0, duration: 0.3 },
           0.2 + 0.2 * s
         );
-        startingAnimation.restart();
+        console.log("Restarting animation")
       }
+      
+      startingAnimation.restart();
     }
   };
 });
