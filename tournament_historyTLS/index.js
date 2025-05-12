@@ -5,10 +5,10 @@ LoadEverything().then(() => {
 
   gsap.config({ nullTargetWarn: false, trialWarn: false });
 
-  //let startingAnimation = gsap.timeline({ paused: true });
+  let startingAnimation;// = gsap.timeline({ paused: true });
 
   Start = async (event) => {
-    //startingAnimation.start();
+    //startingAnimation.restart();
   };
 
   function getNumberOrdinal(n) {
@@ -23,20 +23,16 @@ LoadEverything().then(() => {
 
     if (
       !oldData.score ||
-      JSON.stringify(data.score[1].history_sets) !=
-        JSON.stringify(oldData.score[1].history_sets)
+      JSON.stringify(data.score[window.scoreboardNumber].history_sets) !=
+        JSON.stringify(oldData.score[window.scoreboardNumber].history_sets)
     ) {
-      console.log("-----------------------------")
-      console.log(data.score[1].history_sets, window.PLAYER);
-      let startingAnimation = gsap.timeline({ paused: true });
-
       tournament_html = "";
-      Object.values(data.score[1].history_sets[window.PLAYER])
+      Object.values(data.score[window.scoreboardNumber].history_sets[window.PLAYER])
         .slice(0, 6)
-        .forEach((sets, s) => {
+        .forEach(async(sets, s) => {
           tournament_html += `
           <div class="tournament${s + 1} tournament_container">
-            <div class="info ${window.PLAYER == 2 ? "p2" : "p1"}">
+            <div class="info">
               <div class="tournament_logo"></div>
               <div class="placement"></div>
               <div class="tournament_info">
@@ -48,12 +44,12 @@ LoadEverything().then(() => {
         });
       $(".player1_content").html(tournament_html);
 
+      startingAnimation = gsap.timeline({paused: false})
       for (const [s, tournament] of Object.values(
-        data.score[1].history_sets[window.PLAYER]
+        data.score[window.scoreboardNumber].history_sets[window.PLAYER]
       )
         .slice(0, 6)
         .entries()) {
-          console.log("PROCESSING SET", s, tournament)
         SetInnerHtml(
           $(
             `.player1_content .tournament${
@@ -88,9 +84,8 @@ LoadEverything().then(() => {
           { x: -100, autoAlpha: 0, duration: 0.3 },
           0.2 + 0.2 * s
         );
-        console.log("Restarting animation")
       }
-      
+      console.log("restart animation")
       startingAnimation.restart();
     }
   };
