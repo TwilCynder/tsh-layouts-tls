@@ -34,10 +34,10 @@ LoadEverything(() => {
 
     if (
       !oldData.score ||
-      JSON.stringify(oldData.score[1].recent_sets) !=
-        JSON.stringify(data.score[1].recent_sets)
+      JSON.stringify(oldData.score[window.scoreboardNumber].recent_sets) !=
+        JSON.stringify(data.score[window.scoreboardNumber].recent_sets)
     ) {
-      playersRecentSets = data.score[1].recent_sets;
+      playersRecentSets = data.score[window.scoreboardNumber].recent_sets;
       console.log(playersRecentSets);
     } else {
       return; //for performance ??
@@ -92,7 +92,7 @@ LoadEverything(() => {
                   </div>
                 </div>
                 <div class="score ${_set.winner == 1 ? "set_winner" : "set_loser"}">
-                  <div class = "score_inner">${_set.score[1]}</div>
+                  <div class = "score_inner">${_set.score[window.scoreboardNumber]}</div>
                 </div>
             </div>
           `;
@@ -100,7 +100,7 @@ LoadEverything(() => {
           count++;
         }
 
-        if (_set.score[0] > _set.score[1]){
+        if (_set.score[0] > _set.score[window.scoreboardNumber]){
           p1Victories++;
         } else {
           p2Victories++;
@@ -111,7 +111,7 @@ LoadEverything(() => {
       $("#set_count").html(`${p1Victories} - ${p2Victories}`);
 
 
-      let team = data.score[1].team["1"];
+      let team = data.score[window.scoreboardNumber].team["1"];
       if (team)
         players += generatePlayerHTML(team.player["1"], 1)
 
@@ -119,7 +119,7 @@ LoadEverything(() => {
         <div id = "set_count">${p1Victories} - ${p2Victories}</div>
       `
       
-      team = data.score[1].team["2"];
+      team = data.score[window.scoreboardNumber].team["2"];
       if (team)
           players += generatePlayerHTML(team.player["1"], 2)
     }

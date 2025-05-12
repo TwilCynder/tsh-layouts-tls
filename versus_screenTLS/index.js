@@ -56,7 +56,7 @@ LoadEverything().then(() => {
               $(`.p${t + 1} > .sponsor_logo`),
               player.sponsor_logo
                 ? `
-                  <div class='sponsor_logo' style='background-image: url(../../${player.sponsor_logo})'></div>
+                <div class='sponsor_logo' style="background-image: url('../../${player.sponsor_logo}')"></div>
                   `
                 : ""
             );
@@ -84,7 +84,7 @@ LoadEverything().then(() => {
               player.country.asset
                 ? `
                 <div>
-                    <div class='flag' style='background-image: url(../../${player.country.asset});'>
+                  <div class='flag' style="background-image: url('../../${player.country.asset}');">
                         <div class="flagname">${player.country.code}</div>
                     </div>
                 </div>`
@@ -96,7 +96,7 @@ LoadEverything().then(() => {
               player.state.asset
                 ? `
                 <div>
-                    <div class='flag' style='background-image: url(../../${player.state.asset});'>
+                  <div class='flag' style="background-image: url('../../${player.state.asset}');">
                         <div class="flagname">${player.state.code}</div>
                     </div>
                 </div>`
@@ -255,12 +255,15 @@ LoadEverything().then(() => {
             duration: 0.8,
           });
   
+          console.log("team")
+          console.log(team)
+
           SetInnerHtml($(`.p${t + 1} > .sponsor_logo`), "");
           SetInnerHtml($(`.p${t + 1} .twitter`), ``);
           SetInnerHtml($(`.p${t + 1} .flagcountry`), "");
           SetInnerHtml($(`.p${t + 1} .flagstate`), "");
           SetInnerHtml($(`.p${t + 1} .pronoun`), "");
-          SetInnerHtml($(`.p${t + 1} .seed`), team.seed ? `Seed ${team.seed}` : "");
+        SetInnerHtml($(`.p${t + 1} .seed`), _.get(team, "player.1.seed") ? `Seed ${_.get(team, "player.1.seed")}` : "");
   
           let characterNames = [];
   
@@ -417,7 +420,7 @@ LoadEverything().then(() => {
         stage
           ? `
           <div>
-              <div class='' style='background-image: url(../../${stage.path});'>
+            <div class='' style="background-image: url('../../${stage.path}');">
               </div>
           </div>`
           : ""

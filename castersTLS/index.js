@@ -47,9 +47,8 @@ LoadEverything(() => {
     }
 
     let casters = Object.values(data.commentary);
-    console.log("======", casters)
+    console.log("======\n", casters)
     if (casters.length < 1 || !casters[1].name){
-      console.log("AAAAAAA")
       logos.hide();
     } else {
       logos.show();
