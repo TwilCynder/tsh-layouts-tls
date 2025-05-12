@@ -49,9 +49,6 @@ async function UpdateData() {
     oldData = data;
     data = await getData();
 
-    console.log("TSH UPDATE");
-    console.log(data.timestamp <= oldData.timestamp)
-    console.log(data.timestamp)
     if(data.timestamp <= oldData.timestamp){
         return
     }
@@ -64,7 +61,7 @@ async function UpdateData() {
     event.data = data;
     event.oldData = oldData;
 
-    console.log(data);
+    console.log("Update Data :", data);
     document.dispatchEvent(event);
   } catch (e) {
     console.log(e);
@@ -132,7 +129,6 @@ async function UpdateData_SocketIO() {
       event.data = data;
       event.oldData = oldData;
 
-      console.log(data);
       document.dispatchEvent(event);
     });
   } catch(e) {
@@ -203,7 +199,6 @@ async function InitAll(callback) {
 
   await LoadKuroshiro();
 
-  console.log("CALLBACK")
   if (callback) callback();
 
   if(window.location.protocol === 'file:' || window.location.host === 'absolute') {
@@ -323,15 +318,6 @@ async function Transcript(text) {
   if (text == null || text.length == 0 || !settings.enabled) return text;
 
   try {
-    console.log("KUROSHIRO =====")
-    console.log(text, window.Kuroshiro.default.Util.hasJapanese(text))
-    console.log(window.Kuroshiro.default.Util.hasJapanese("Ganymède"))
-    console.log("Ganymède".length)
-    for (let i = 0; i < text.length; i++){
-      console.log(text.codePointAt(i));
-    }
-    console.log("================")
-
     if (window.Kuroshiro.default.Util.hasJapanese(text)) {
       return window.kuroshiro
         .convert(text, {
@@ -346,7 +332,7 @@ async function Transcript(text) {
       return text;
     }
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return text;
   }
 }
