@@ -488,13 +488,15 @@ body {
 .league_team {
   position: absolute;
   top: 90px;
-  width: 180px;
+  width: 220px;
   height: 30px;
   background-color: var(--tls-purple);
   clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 10px 100%);
   font-size: 15px;
   color: white;
   padding-top: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
   justify-content: center;
 
   display: flex;
