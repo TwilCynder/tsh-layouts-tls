@@ -23,12 +23,10 @@ body {
 }
 
 .container {
-  color: var(--text-color);
   overflow: hidden;
   display: flex;
   box-sizing: border-box;
   border-radius: calc(var(--border-radius) / 2);
-  background-color: var(--tls-yellow);
   align-items: center;
   justify-content: center;
   place-content: center;
@@ -143,7 +141,7 @@ body {
   font-size: 20px;
   box-sizing: border-box;
   padding: 2px 8px;
-  color: var(--text-color);
+  color: white;
   border-radius: calc(var(--border-radius) / 2);
   background-color: var(--bg-color);
 }
@@ -317,11 +315,11 @@ body {
   flex-grow: 0;
   flex-shrink: 0;
   overflow: hidden;
-  color: var(--p1-score-color);
+  color: var(--text-color);
   margin-left: 0;
   padding-right: 8px;
   margin-right: -8px;
-  background: var(--tls-p2-score);
+  background: var(--tls-purple);
   text-align: center;
   display: flex;
   justify-content: center;
@@ -351,8 +349,28 @@ body {
   top: 0;
 }
 
-.current-match {
-  -webkit-box-shadow:0px 0px 17px 3px var(--tls-purple);
-  -moz-box-shadow: 0px 0px 17px 3px var(--tls-purple);
-  box-shadow: 0px 0px 17px 3px var(--tls-purple);
+.player.container {
+  background-color: var(--tls-yellow);
 }
+
+.current-match .score {
+  background-color: var(--tls-yellow);
+  color: black;
+}
+
+.current-match .player.container {
+  background-color: var(--tls-purple);
+  color: white;
+}
+
+.current-match .sponsor {
+  color: var(--tls-yellow);
+}
+
+/*
+.current-match {
+  -webkit-box-shadow:0px 0px 17px 5px var(--tls-purple);
+  -moz-box-shadow: 0px 0px 17px 5px var(--tls-purple);
+  box-shadow: 0px 0px 17px 5px var(--tls-purple);
+}
+*/

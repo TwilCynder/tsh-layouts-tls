@@ -121,8 +121,15 @@ LoadEverything(() => {
   }
 
   Update = async (event) => {
+    console.log("UPDATE");
     let data = event.data;
     let oldData = event.oldData;
+
+    const scoreboard = _.get(data, `score[${window.scoreboardNumber}]`);
+
+    if (!oldData.scoreboard || JSON.stringify(scoreboard) != JSON.stringify(oldData.score[window.scoreboardNumber])){
+      console.log("=== NEED UPDATE TO THE MATCH ========");
+    }
 
     if (
       !oldData.bracket ||
@@ -560,20 +567,18 @@ LoadEverything(() => {
       });
 
       // UPDATE PLAYER DATA
-      console.log("---- Data");
-      const slots = _.get(data, "score[1].team");
+      const slots = scoreboard.team
       const scoreboardP1 = slots[1].player;
       const scoreboardP2 = slots[2].player;
-      const scoreboardRound = _.get(data, "score[1].match");
+      const scoreboardRound = scoreboard.match
       for (const [roundKey, round] of Object.entries(bracket)) {
         for (const [setIndex, set] of Object.entries(round.sets)) {
           
           let slotIndex = parseInt(setIndex) + 1;
 
-          let p1 = players[set.playerId[0]].player;
-          let p2 = players[set.playerId[1]].player;
-          console.log(p1, p2, round.name);
-          if ((
+          let p1 = set.playerId[0] > -1 ? players[set.playerId[0]].player : null;
+          let p2 = set.playerId[1] > -1 ? players[set.playerId[1]].player : null;
+          if (p1 && p2 && (
             compare_players(p1, scoreboardP1) && compare_players(p2, scoreboardP2) ||
             compare_players(p2, scoreboardP1) && compare_players(p1, scoreboardP2)
           ) && scoreboardRound == round.name) {
