@@ -188,7 +188,7 @@ LoadEverything(() => {
                 <div class="p_${playerId} slot_p_${p} player container">
                   <div class="icon avatar"></div>
                   <div class="name_twitter">
-                  <div class="name"></div>
+                    <div class="name"></div>
                   </div>
                   <div class="sponsor_icon"></div>
                   <div class="flags">
