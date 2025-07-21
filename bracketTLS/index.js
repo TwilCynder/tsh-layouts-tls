@@ -1,5 +1,12 @@
 update_delay = 5000;
 
+function compare_players(playersL, playersR){
+  for (let k in playersL){
+    if (playersL[k].name != playersR[k].name) return false;
+  }
+  return true;
+}
+
 LoadEverything(() => {
   gsap.config({ nullTargetWarn: false, trialWarn: false });
 
@@ -114,8 +121,15 @@ LoadEverything(() => {
   }
 
   Update = async (event) => {
+    console.log("UPDATE");
     let data = event.data;
     let oldData = event.oldData;
+
+    const scoreboard = _.get(data, `score[${window.scoreboardNumber}]`);
+
+    if (!oldData.scoreboard || JSON.stringify(scoreboard) != JSON.stringify(oldData.score[window.scoreboardNumber])){
+      console.log("=== NEED UPDATE TO THE MATCH ========");
+    }
 
     if (
       !oldData.bracket ||
@@ -553,13 +567,29 @@ LoadEverything(() => {
       });
 
       // UPDATE PLAYER DATA
+      const slots = scoreboard.team
+      const scoreboardP1 = slots[1].player;
+      const scoreboardP2 = slots[2].player;
+      const scoreboardRound = scoreboard.match
       for (const [roundKey, round] of Object.entries(bracket)) {
         for (const [setIndex, set] of Object.entries(round.sets)) {
+          
+          let slotIndex = parseInt(setIndex) + 1;
+
+          let p1 = set.playerId[0] > -1 ? players[set.playerId[0]].player : null;
+          let p2 = set.playerId[1] > -1 ? players[set.playerId[1]].player : null;
+          if (p1 && p2 && (
+            compare_players(p1, scoreboardP1) && compare_players(p2, scoreboardP2) ||
+            compare_players(p2, scoreboardP1) && compare_players(p1, scoreboardP2)
+          ) && scoreboardRound == round.name) {
+            $(`.round_${roundKey} .slot_${slotIndex}`).addClass("current-match");
+          } else {
+            $(`.round_${roundKey} .slot_${slotIndex}`).removeClass("current-match");
+          }
+
           for (const [index, pid] of set.playerId.entries()) {
             let element = $(
-              `.round_${roundKey} .slot_${
-                parseInt(setIndex) + 1
-              } .slot_p_${index}`
+              `.round_${roundKey} .slot_${slotIndex} .slot_p_${index}`
             ).get(0);
 
             if (!element) continue;

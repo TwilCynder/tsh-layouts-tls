@@ -153,14 +153,12 @@ LoadEverything().then(() => {
     });
     $("#caster_names_container").html(html);
 
-    let isTeams = Object.keys(data.score[1].team["1"].player).length > 1;
-
-    
+    let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
 
     if (!isTeams) {
       for (const [t, team] of [
-        data.score[1].team["1"],
-        data.score[1].team["2"],
+        data.score[window.scoreboardNumber].team["1"],
+        data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
 
         for (const [p, player] of [team.player["1"]].entries()) {
@@ -281,8 +279,8 @@ LoadEverything().then(() => {
       $(`.league_team`).hide();
 
       for (const [t, team] of [
-        data.score[1].team["1"],
-        data.score[1].team["2"],
+        data.score[window.scoreboardNumber].team["1"],
+        data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
         let teamName = "";
         let teamNamePlayers = ""
@@ -356,10 +354,10 @@ LoadEverything().then(() => {
 
     SetInnerHtml($(".tournament_name"), data.tournamentInfo.tournamentName);
 
-    let match = data.score[1].match;
+    let match = data.score[window.scoreboardNumber].match;
 
     try {
-      match = translateRound(data.score[1].phase, data.score[1].match);
+      match = translateRound(data.score[window.scoreboardNumber].phase, data.score[window.scoreboardNumber].match);
     } catch (e){
       console.error(e);
     }
@@ -387,11 +385,11 @@ LoadEverything().then(() => {
     }
 
     let phaseTexts = [];
-    if (data.score[1].phase) phaseTexts.push(data.score[1].phase);
-    if (data.score[1].best_of_text) phaseTexts.push(data.score[1].best_of_text);
+    if (data.score[window.scoreboardNumber].phase) phaseTexts.push(data.score[window.scoreboardNumber].phase);
+    if (data.score[window.scoreboardNumber].best_of_text) phaseTexts.push(data.score[window.scoreboardNumber].best_of_text);
 
     SetInnerHtml($(".phase"), phaseTexts.join(" - "));
-    SetInnerHtml($("#bestof"), "Best of " + data.score[1].best_of);
+    SetInnerHtml($("#bestof"), "Best of " + data.score[window.scoreboardNumber].best_of);
   };
 });
 
