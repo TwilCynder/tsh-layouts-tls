@@ -530,6 +530,10 @@ body {
   color: white;
   font-size: 25px;
   padding-top: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .next_set_name {
