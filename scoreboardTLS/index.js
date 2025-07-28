@@ -66,8 +66,6 @@ LoadEverything().then(() => {
 
   let config = _.defaultsDeep(window.config, default_config);
 
-  console.log(config.teamNameSeparator)
-
   initAlternatingLogos($, logo_interval);
 
   gsap.config({ nullTargetWarn: false, trialWarn: false });
@@ -258,7 +256,6 @@ LoadEverything().then(() => {
             SetInnerHtml($(`.p${t + 1} .score`), String(team.score));
 
             if ($(".sf6.online").length > 0) {
-              console.log("hi");
               console.log(player.twitter);
               console.log(player.pronoun);
               if (!player.twitter && !player.pronoun) {
@@ -277,7 +274,8 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
-        let teamName = "";
+        let losersStr = team.losers ? "<span class='losers'>L</span>" : ""
+
         let teamNamePlayers = ""
 
         let names = [];
@@ -288,21 +286,29 @@ LoadEverything().then(() => {
         }
         teamNamePlayers = names.join(" / ");
 
-        teamName = (!team.teamName || team.teamName == "") ? teamNamePlayers : team.teamName;
 
-        let carousel = carousels[t];
-        carousel.reset();
-        carousel.add(`
-          ${teamName}
-          ${team.losers ? " [L]" : ""}
-        `);
-        carousel.add(`
-          ${teamNamePlayers}
-          ${team.losers ? "<span class='losers'>L</span>" : ""}
-        `);
-        carousel.selector = `.p${t + 1}.container .name`
+        if (team.teamName && !tsh_settings.forceTeamDisplay){
+          let carousel = carousels[t];
+          carousel.reset();
 
-        carousel.startRotation(10000);
+          carousel.add(`
+            ${team.teamName}
+            ${losersStr}
+          `);
+          carousel.add(`
+            ${teamNamePlayers}
+            ${losersStr}
+          `);
+          carousel.selector = `.p${t + 1}.container .name`
+
+          carousel.startRotation(2000);
+        } else if (team.teamName && tsh_settings.forceTeamDisplay == "teamName") {
+          SetInnerHtml($(`.p${t + 1}.container .name`), team.teamName);
+        } else {
+          SetInnerHtml($(`.p${t + 1}.container .name`), teamNamePlayers);
+        }
+
+
 
         SetInnerHtml($(`.p${t + 1}.score`), String(team.score));
 
