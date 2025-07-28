@@ -441,6 +441,7 @@ body {
 }
 
 .pronoun {
+  color: var(--text-color);
   font-size: 12px;
   text-transform: uppercase;
   margin-top: auto;
@@ -449,17 +450,8 @@ body {
   margin-bottom: 4px;
 }
 
-
-
 .sponsor {
   margin-right: 6px;
-}
-
-.sponsor {
-  color: var(--text-color);
-}
-
-.pronoun {
   color: var(--text-color);
 }
 
