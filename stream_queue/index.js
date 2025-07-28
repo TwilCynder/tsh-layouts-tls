@@ -23,6 +23,8 @@ LoadEverything().then(() => {
         return value === "" || value === -1 || value === undefined || value === null
     }
 
+    let window_config = window.config || {}
+
     function assignDefault(target, source){
         for (k in target){
             let value = source[k]
@@ -41,6 +43,7 @@ LoadEverything().then(() => {
     }
 
     assignDefault(config, tsh_settings);
+    assignDefault(config, window_config);
 
     if (!config.display){
         config.display = {};
