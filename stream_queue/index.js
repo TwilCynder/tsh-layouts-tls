@@ -43,7 +43,6 @@ LoadEverything().then(() => {
     }
 
     assignDefault(config, tsh_settings);
-    assignDefault(config, window_config);
 
     if (!config.display){
         config.display = {};
