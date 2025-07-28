@@ -23,8 +23,6 @@ LoadEverything().then(() => {
         return value === "" || value === -1 || value === undefined || value === null
     }
 
-    let window_config = window.config || {}
-
     function assignDefault(target, source){
         for (k in target){
             let value = source[k]

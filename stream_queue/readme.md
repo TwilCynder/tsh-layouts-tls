@@ -18,7 +18,7 @@ The "**queue**" of a stream or station is the list of matches assigned to that s
 
 This layout can display all of these things depending on the following : 
 - If you are tracking a stream or station in TSH directly (using the gear icon next to "Track sets from a stream or station"), this stream or station's queue will be displayed
-- You can also use the options (either in settings.json or `window.config`, see below) : 
+- You can also use the options (either in settings.json or `window.settings`, see below) : 
   - The "stream" option will override the stream selected in TSH : if there is a name between the quotes next to "stream", it will display the queue for that stream no matter what.
   - the "default_stream" option does the opposite : a stream name specified here will be used only if there is no stream selected in TSH.  
 There is no way to display the queue for an arbitrary station, you can only display the station tracked in TSH.
@@ -32,14 +32,14 @@ Note that in global mode, the name of each stream will be displayed : this can b
 ### Options
 Options can be defined in two places : 
 - In settings.json, you will find all the options that can change the behavior or this layout. Remember that everything between the `:` next to an option name, and the next `,` (or `}` at the end) will be the value of that option. Values can be numbers (written normally), text (between quotes) and the two special values `true` and `false`, options that are basically a yes/no question. 
-- You can makes copies of the .html file, while overriding some options for each file. If you want an overlay that displays the global stream queue, and an overlay that follows what TSH is tracking, you'll want to use two separate copies of the HTML files with different options. To override an option only for a specific .html file, open it, and add a `"option name" : value,` line (same syntax as in settings.json) between the brackets after `window.config`. 
+- You can makes copies of the .html file, while overriding some options for each file. If you want an overlay that displays the global stream queue, and an overlay that follows what TSH is tracking, you'll want to use two separate copies of the HTML files with different options. To override an option only for a specific .html file, open it, and add a `"option name" : value,` line (same syntax as in settings.json) between the brackets after `window.settings`. 
   ```html
-    window.config = {
+    window.settings = {
         "OPTION" : VALUE,
     };
   ```
 
-Basically settings.json contains the global options, and if you want to use multiple instances of the layout with different behaviors you copy index.html and use window.config to override the relevant options.  
+Basically settings.json contains the global options, and if you want to use multiple instances of the layout with different behaviors you copy index.html and use window.settings to override the relevant options.  
 
 So, now that you understand options, here are all the possible options and what they do
 
