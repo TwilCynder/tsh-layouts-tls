@@ -27,9 +27,17 @@ body {
   flex-direction: column;
   box-sizing: border-box;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.content.spreadout {
   flex-grow: 1;
+  justify-content: space-between;
+}
+
+.coontent.centered {
+  justify-content: center;
+  gap: 30px;
 }
 
 .player_container {

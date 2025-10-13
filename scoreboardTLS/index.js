@@ -301,7 +301,7 @@ LoadEverything().then(() => {
           `);
           carousel.selector = `.p${t + 1}.container .name`
 
-          carousel.startRotation(2000);
+          carousel.startRotation(10000);
         } else if (team.teamName && tsh_settings.forceTeamDisplay == "teamName") {
           SetInnerHtml($(`.p${t + 1}.container .name`), team.teamName);
         } else {
