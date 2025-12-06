@@ -163,7 +163,7 @@ body {
 .player.container {
   bottom: 0;
   width: 640px;
-  height: 200px;
+  height: 245px;
   display: flex;
   flex-direction: row;
   align-content: center;
@@ -572,4 +572,18 @@ body {
 
 .p2 .sponsor_logo {
   right: 32px;
+}
+
+.controller {
+  position: absolute;
+  font-size: 20px;
+  bottom: 15px;
+}
+
+.p2 .controller {
+  right: 35px;
+}
+
+.controller_wrapper img, .controller_wrapper .controller_name {
+  vertical-align: middle;
 }

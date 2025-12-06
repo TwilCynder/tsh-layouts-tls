@@ -108,6 +108,19 @@ LoadEverything().then(() => {
           );
 
           SetInnerHtml(
+            $(`.p${t + 1} .controller`),
+            player.controller
+              ? `
+              <div>
+                  <div class='controller_wrapper'>
+                  <img src='../../${player.controller.icon_path}' height="25">
+                  <span class = "controller_name">${player.controller.short_name}</span>
+                  </div>
+              </div>`
+              : ""
+          );
+
+          SetInnerHtml(
             $(`.p${t + 1} .flagstate`),
             player.state.asset
               ? `
@@ -130,7 +143,7 @@ LoadEverything().then(() => {
               for (const c of characterValues){
                 if (c.variant){
                   if (single_variant){
-                    single_variant == false;
+                    single_variant = false;
                   } else if (single_variant === null) { //fist variant
                     single_variant = c.variant;
                   }
