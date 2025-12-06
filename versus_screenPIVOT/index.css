@@ -1,0 +1,103 @@
+@font-face {
+    font-family: BebasNeue;
+    src: url("../includePIVOT/BebasNeue-Regular.ttf");
+}
+
+body {
+  font-family: BebasNeue;
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  letter-spacing: 1;
+  background-size: cover;
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.player {
+    position: absolute;
+    bottom: 47px;
+
+    width: 456px;
+    height: 173px;
+
+    font-family: BebasNeue;
+    font-size: 40px;
+    color: white;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.player.p1 {
+    left: 238px;
+}
+
+.player.p2 {
+    right: 240px;
+    flex-direction: row-reverse;
+}
+
+.score {
+    padding-top: 15px;
+    width: 100px;
+    font-size: 150px;
+}
+
+.player_info {
+    width: 100%;
+    height: 100%;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+}
+
+.name {
+    width: 100%;
+    font-size: 74px;
+    line-height: 60px;
+}
+
+.sponsor {
+    color: #aaaaaa;
+    padding-right: 15px;
+}
+
+.pronoun {
+    font-size: 32px;
+    line-height: 30px;
+    color: #EB9BFC;
+}
+
+.twitter {
+    font-size: 40px;
+    line-height: 40px;
+}

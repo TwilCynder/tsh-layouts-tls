@@ -1,0 +1,125 @@
+@font-face {
+  font-family: BebasNeue;
+  src: url("../includePIVOT/BebasNeue-Regular.ttf");
+}
+
+body {
+  font-family: BebasNeue;
+  color: white;
+  font-weight: bold;
+  opacity: 0;
+  overflow: hidden;
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
+  letter-spacing: 1;
+  background-size: cover;
+}
+
+
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.score {
+  position: absolute;
+  bottom: 968px;
+  width: 48px;
+  height: 46px;
+
+  font-size: 82px;
+}
+
+.p1.score {
+  left: 761px;
+}
+
+
+.p2.score {
+  right: 152px;
+}
+
+.name {
+
+  position: absolute;
+  bottom: 975px;
+  width: 166px;
+  height: 23px;
+
+  font-size: 25px;
+}
+
+.p1.name {
+  left: 870px;
+}
+
+.p2.name {
+  right: 286px;
+}
+
+.sponsor {
+  color: #aaaaaa;
+  margin-right: 10px;
+}
+
+.info {
+  position: absolute;
+  bottom: 947px;
+  width: 138px;
+  height: 23px;
+  font-size: 16px;
+}
+
+.p1.info {
+  left: 898px;
+}
+
+.p2.info {
+  right: 309px;
+  bottom: 947px;
+}
+
+.match {
+  position: absolute;
+  top: 81px;
+  left: 1044px;
+  width: 411px;
+  height: 55px;
+  font-size: 74px;
+
+}
+
+.bestof {
+  font-size: 30px;
+}
+
+.next-match-container {
+
+  position: absolute;
+  top: 43px;
+  left: 32px;
+  width: 577px;
+  height: 109px;
+  font-size: 64px;
+  line-height: 55px;
+}
+
+.next-match-container .text {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.next-match-player {
+  color: #EB9BFC;
+}
