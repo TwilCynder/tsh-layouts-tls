@@ -53,7 +53,7 @@ $(() => {
 
     //add_set("SnooSnoo", 2, "Nacy's Bitch", 1, 4);
               
-    function load_sets(config){
+    function load_sets(config, token){
         console.log(config)
         console.log("Load sets");
         fetch('https://api.start.gg/gql/alpha', {         
@@ -61,7 +61,7 @@ $(() => {
             headers: {             
                 'Content-Type': 'application/json',             
                 'accept' : 'application/json',             
-                'Authorization' : `Bearer ${config.token}`         
+                'Authorization' : `Bearer ${token}`         
             },         
             body: JSON.stringify({
                 'query': query,
@@ -101,13 +101,14 @@ function stripURL(url){
 
 Promise.all([
     fetch("./config.json"),
+    fetch("./secret.json"),
     fetch('../../user_data/settings.json'),
 ])
     .then( results => Promise.all(results.map(
         response => response.json()
     )))
     
-    .then(([config, tsh_settings]) => {
+    .then(([config, secret, tsh_settings]) => {
         if (tsh_settings && tsh_settings.TOURNAMENT_URL){
             config.event = config.event ?? tsh_settings.TOURNAMENT_URL;
         }
@@ -115,7 +116,7 @@ Promise.all([
         if (!config.event) return;
         if (config.event.includes("start.gg")) config.event = stripURL(config.event);
 
-        load_sets(config);
+        load_sets(config, secret.token);
         setTimeout(() => {
             load_sets(config);
         }, 15000);
