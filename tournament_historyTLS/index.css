@@ -56,7 +56,7 @@ body {
   box-sizing: border-box;
 }
 
-.info.p1 {
+.player1_content .info {
   flex-direction: row-reverse;
 }
 
@@ -64,7 +64,7 @@ body {
   width: 45%;
   color: var(--text-color);
   overflow: hidden;
-  border-radius: 0px;
+  border-radius: 10px;
 }
 
 .placement {
@@ -100,11 +100,11 @@ body {
 
 }
 
-.p1 .tournament_info {
+.player1_content .tournament_info {
   padding-left: 32px;
 }
 
-.p2 .tournament_info {
+.player2_content .tournament_info {
   padding-right: 32px;
 }
 

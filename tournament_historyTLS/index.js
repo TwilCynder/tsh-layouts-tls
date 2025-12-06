@@ -42,7 +42,7 @@ LoadEverything().then(() => {
             </div>
           </div>`;
         });
-      $(".player1_content").html(tournament_html);
+      $(".content").html(tournament_html);
 
       startingAnimation = gsap.timeline({paused: false})
       for (const [s, tournament] of Object.values(
@@ -52,7 +52,7 @@ LoadEverything().then(() => {
         .entries()) {
         SetInnerHtml(
           $(
-            `.player1_content .tournament${
+            `.content .tournament${
               s + 1
             } .info .tournament_info .tournament_name`
           ),
@@ -60,20 +60,20 @@ LoadEverything().then(() => {
         );
         SetInnerHtml(
           $(
-            `.player1_content .tournament${
+            `.content .tournament${
               s + 1
             } .info .tournament_info .event_name`
           ),
           tournament.event_name
         );
         SetInnerHtml(
-          $(`.player1_content .tournament${s + 1} .info .tournament_logo`),
+          $(`.content .tournament${s + 1} .info .tournament_logo`),
           `
               <span class="logo" style="background-image: url('${tournament.tournament_picture}')"></span>
             `
         );
         SetInnerHtml(
-          $(`.player1_content .tournament${s + 1} .info .placement`),
+          $(`.content .tournament${s + 1} .info .placement`),
           tournament.placement +
             `<span class="ordinal">${getNumberOrdinal(
               tournament.placement
