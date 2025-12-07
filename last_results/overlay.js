@@ -109,6 +109,8 @@ Promise.all([
     )))
     
     .then(([config, secret, tsh_settings]) => {
+        const load_sets_ = () => load_sets(config, secret.token)
+
         if (tsh_settings && tsh_settings.TOURNAMENT_URL){
             config.event = config.event ?? tsh_settings.TOURNAMENT_URL;
         }
@@ -116,9 +118,9 @@ Promise.all([
         if (!config.event) return;
         if (config.event.includes("start.gg")) config.event = stripURL(config.event);
 
-        load_sets(config, secret.token);
+        load_sets_();
         setTimeout(() => {
-            load_sets(config);
+            load_sets_();
         }, 15000);
     });
 
