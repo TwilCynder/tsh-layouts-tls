@@ -300,7 +300,7 @@ body {
     color: white
   }
   
-  #bestof {
+  .bestof {
     top: 92px;
     left: 1025px;
     width: 250px;

@@ -36,7 +36,7 @@ LoadEverything(() => {
       1
     )
     .from(
-      ["#bestof"],{
+      [".bestof"],{
         duration: 1,
         autoAlpha: 0,
         ease: "power2.inOut"
@@ -259,6 +259,6 @@ LoadEverything(() => {
     if (data.score.best_of_text) phaseTexts.push(data.score.best_of_text);
 
     SetInnerHtml($(".phase"), phaseTexts.join(" - "));
-    SetInnerHtml($("#bestof"), "Best of " + data.score.best_of);
+    SetInnerHtml($(".bestof"), "Best of " + data.score.best_of);
   };
 });

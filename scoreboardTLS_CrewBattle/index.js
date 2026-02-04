@@ -50,7 +50,7 @@ LoadEverything().then(() => {
       1
     )
     .from(
-      ["#bestof"],{
+      [".bestof"],{
         duration: 1,
         autoAlpha: 0,
         ease: "power2.inOut"
@@ -249,7 +249,7 @@ LoadEverything().then(() => {
     if (data.score[1].best_of_text) phaseTexts.push(data.score[1].best_of_text);
 
     SetInnerHtml($(".phase"), phaseTexts.join(" - "));
-    SetInnerHtml($("#bestof"), "Best of " + data.score[1].best_of);
+    SetInnerHtml($(".bestof"), "Best of " + data.score[1].best_of);
   }
 });
 

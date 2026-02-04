@@ -344,7 +344,7 @@
     color: var(--tls-yellow)
   }
   
-  #bestof {
+  .bestof {
     top: 72px;
     left: 837px;
     width: 220px;

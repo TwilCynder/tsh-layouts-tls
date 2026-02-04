@@ -551,7 +551,7 @@ body {
   left: 710px;
 }
 
-#bestof {
+.bestof {
   width: 220px;
   justify-content: center;
   color: white;

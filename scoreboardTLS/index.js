@@ -2,69 +2,33 @@ import { initAlternatingLogos } from "../includeTLS/initAlternatingLogos.js";
 import { Carousel } from "../includeTLS/SIHCarousel.js";
 import { translateRound } from "../includeTLS/util.js";
 import { startTimeDisplay } from "../includeTLS/timeDisplayManager.js";
+import { loadSLT, updateSLTTeam } from "./js/SLT.js";
 
 update_delay = 2000;
 let logo_interval = 10000;
 
-let SLTTeams = {};
-let SLTTeamNames = {};
-
-let teamsPromise = fetch('./data/SLT1/SLT_Players.json')
-  .then( res => res.json())
-  .then( json => {
-    SLTTeams = Object.values(json);
-});
-
-let teamNamesPromise = fetch('./data/SLT1/TeamNames.json')
-  .then (res => res.json())
-  .then (json => {
-    SLTTeamNames = json;
-  })
-
-function findPlayer(players, name){
-  for (let player of players){
-    if (player.name.includes(name)) return player
-  }
-}
-
-async function updateSLTTeam(teamN, playerName){
-  try {
-    await Promise.all([teamsPromise, teamNamesPromise]);
-    let player = findPlayer(SLTTeams, playerName);
-    let team = player.team;
-    team = SLTTeamNames[team] || team;
-    console.log("SLT TEAM", playerName, team);
-    if (team){
-      SetInnerHtml(
-        $(`.p${teamN + 1} .team_name`),
-        team
-      );
-      $(`.p${teamN + 1}.league_team`).show();
-    } else {
-      $(`.p${teamN + 1}.league_team`).hide();
-    }
-  } catch (err){
-    console.error("Error while updating SLT team", teamN, ":", err);
-    $(`.p${teamN + 1}.league_team`).hide();
-  }
-
+if (window.SLT){
+  loadSLT();
 }
 
 const default_config = {
   display : {
-    "inline_pronoun" : true,
-    "sponsor":  true
+    "inline_losers" : false,
+    "inline_sponsor":  true,
+    "standalone_pronoun": false
   }
 }
 
+let carousels = [null, null];
+
+
+function cosd(c1, c2){
+  return `.${c1} .${c2}, .${c1}.${c2}`;
+}
+
 LoadEverything().then(() => {
-  let carousels = [
-    new Carousel(),
-    new Carousel()
-  ]
 
-
-  let config = _.defaultsDeep(window.config, default_config);
+  tsh_settings = _.defaultsDeep(tsh_settings, default_config);
 
   initAlternatingLogos($, logo_interval);
 
@@ -74,58 +38,15 @@ LoadEverything().then(() => {
     .timeline({ paused: true })
     .from([".logo"], { duration: 0.5, autoAlpha: 0, ease: "power2.inOut" }, 0.5)
     .from(
-      [".anim_container_outer"],
+      [".fade"],
       {
-        duration: 1,
-        width: "0",
-        ease: "power2.inOut",
-      },
-      1
-    )
-    .from(
-      [".bottom"],
-      {
-        duration: 1,
+        duration: 0.8,
         autoAlpha: 0,
-        ease: "power2.inOut",
-      },
-      1
-    )
-    .from(
-      ["#bestof"],{
-        duration: 1,
-        autoAlpha: 0,
-        ease: "power2.inOut"
-      },
-      1 
-    )
-    .from(
-      [".fgc .top", ".fgc .player"],
-      {
-        duration: 1,
-        y: "-100px",
-        ease: "power2.inOut",
+        ease: "power2.out",
       },
       0
     )
-    .from(
-      [".fgc:not(.bblue) .bottom"],
-      {
-        duration: 1,
-        y: "+100px",
-        ease: "power2.inOut",
-      },
-      0
-    )
-    .from(
-      [".fgc.bblue .bottom"],
-      {
-        duration: 1,
-        autoAlpha: 0,
-        ease: "power2.inOut",
-      },
-      0.2
-    );
+;
 
   Start = async () => {
     startingAnimation.restart();
@@ -138,11 +59,10 @@ LoadEverything().then(() => {
     let data = event.data;
     let oldData = event.oldData;
 
-
     let casters = Object.values(data.commentary);
-    console.log(casters)
+    console.log("Casters :", casters)
     let html = ""
-    casters.forEach((commentator, index) => {
+    casters.forEach((commentator) => {
       if (commentator.name){
         html += `
         <span class = "caster_name">${commentator.name}</span>
@@ -159,125 +79,101 @@ LoadEverything().then(() => {
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
 
-        for (const [p, player] of [team.player["1"]].entries()) {
+        {
+          const player = team.player["1"];
+          const playerClass = "p" + (t + 1);
           if (player) {
-
             SetInnerHtml(
-              $(`.p${t + 1}.container .name`),
+              $(cosd(playerClass, "name")),
               `
-                ${config.display.sponsor ? `
+                ${
+                  player.team ? (tsh_settings.display.inline_sponsor ? player.team + " | " : 
+                  `
                   <span class="sponsor">
-                    ${player.team ? player.team : ""}
-                    ${config.teamNameSeparator ? config.teamNameSeparator : ""}
-                  </span> ` 
-                  : ""
+                    ${player.team}
+                  </span> 
+                  `) : ""
                 }
                 ${await Transcript(player.name)}
-                ${config.display.inline_pronoun ? `
+
+                ${ (tsh_settings.display.standalone_pronoun) ? "" :
+                  `
                   <span class="pronoun scoreboard_pronoun">
                   ${player.pronoun ? player.pronoun : ""}
-                  </span>`
-                  : ""
-                }
-                
-                ${team.losers ? (config.inlineLosers ? " [L]" : "<span class='losers'>L</span>") : ""}
+                  </span>
+                  `
+                } 
+                ${team.losers ? (tsh_settings.display.inline_losers ? " [L]" : "<span class='losers'>L</span>") : ""}
               `
             );
 
-            updateSLTTeam(t, player.name);
+            if (window.SLT){
+              updateSLTTeam(t, player.name);
+            }
+            
 
             SetInnerHtml(
-              $(`.p${t + 1} .flagcountry`),
+              $(cosd(playerClass, "flagcountry")),
               player.country.asset
                 ? `<div class='flag' style='background-image: url(../../${player.country.asset.toLowerCase()})'></div>`
                 : ""
             );
-
             SetInnerHtml(
-              $(`.p${t + 1} .flagstate`),
+              $(cosd(playerClass, "flagstate")),
               player.state.asset
                 ? `<div class='flag' style='background-image: url(../../${player.state.asset})'></div>`
                 : ""
             );
-
-            /*await CharacterDisplay(
-              $(`.p${t + 1}.container .character_container`),
-              {
-                asset_key: "base_files/icon",
-                source: `score.1.team.${t + 1}`,
-              },
-              event
-            );*/
-
             SetInnerHtml(
-              $(`.p${t + 1}.container .sponsor_icon`),
+              $(cosd(playerClass, "sponsor_icon")),
               player.sponsor_logo
                 ? `<div style='background-image: url(../../${player.sponsor_logo})'></div>`
                 : ""
             );
-
             SetInnerHtml(
-              $(`.p${t + 1}.container .avatar`),
+              $(cosd(playerClass, "avatar")),
               player.avatar
                 ? `<div style="background-image: url('../../${player.avatar}')"></div>`
                 : ""
             );
-
             SetInnerHtml(
-              $(`.p${t + 1}.container .online_avatar`),
-              player.online_avatar
-                ? `<div style="background-image: url('${player.online_avatar}')"></div>`
-                : ""
-            );
-
-            SetInnerHtml(
-              $(`.p${t + 1} .twitter`),
+              $(cosd(playerClass, "twitter")),
               player.twitter
                 ? `<span class="twitter_logo"></span>${String(player.twitter)}`
                 : ""
             );
-
             SetInnerHtml(
-              $(`.p${t + 1} .pronoun.chip`),
+              $(cosd(playerClass, "pronoun.chip")),
               player.pronoun ? player.pronoun : ""
             );
-
             SetInnerHtml(
-              $(`.p${t + 1} .seed`),
+              $(cosd(playerClass, "seed")),
               player.seed ? `Seed ${player.seed}` : ""
             );
-
             SetInnerHtml(
-              $(`.p${t + 1}.container .sponsor-container`),
+              $(cosd(playerClass, "sponsor-container")),
               `<div class='sponsor-logo' style='background-image: url(../../${player.sponsor_logo})'></div>`
             );
 
-            SetInnerHtml($(`.p${t + 1}.score`), String(team.score));
-            SetInnerHtml($(`.p${t + 1} .score`), String(team.score));
-
-            if ($(".sf6.online").length > 0) {
-              console.log(player.twitter);
-              console.log(player.pronoun);
-              if (!player.twitter && !player.pronoun) {
-                gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 0 });
-              } else {
-                gsap.to($(`.p${t + 1}.chips`), { autoAlpha: 1 });
-              }
-            }
+            SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
           }
         }
       }
     } else {
       $(`.league_team`).hide();
+      SetInnerHtml($(`.sponsor_icon`), "");
+      SetInnerHtml($(`.avatar`), "");
+      SetInnerHtml($(`.online_avatar`), "");
+      SetInnerHtml($(`.twitter`), "");
+      SetInnerHtml($(`.sponsor-container`), "");
 
       for (const [t, team] of [
         data.score[window.scoreboardNumber].team["1"],
         data.score[window.scoreboardNumber].team["2"],
       ].entries()) {
-        let losersStr = team.losers ? "<span class='losers'>L</span>" : ""
+        let losersStr = team.losers ? (tsh_settings.display.inline_losers ? " [L]" : "<span class='losers'>L</span>") : ""
 
         let teamNamePlayers = ""
-
         let names = [];
         for (const [p, player] of Object.values(team.player).entries()) {
           if (player && player.name) {
@@ -286,8 +182,10 @@ LoadEverything().then(() => {
         }
         teamNamePlayers = names.join(" / ");
 
+        const playerClass = "p" + (t + 1);
 
         if (team.teamName && !tsh_settings.forceTeamDisplay){
+          if (!carousels[t]) carousels[t] = new Carousel;
           let carousel = carousels[t];
           carousel.reset();
 
@@ -303,14 +201,12 @@ LoadEverything().then(() => {
 
           carousel.startRotation(10000);
         } else if (team.teamName && tsh_settings.forceTeamDisplay == "teamName") {
-          SetInnerHtml($(`.p${t + 1}.container .name`), team.teamName);
+          SetInnerHtml($(cosd(playerClass, "name")), team.teamName);
         } else {
-          SetInnerHtml($(`.p${t + 1}.container .name`), teamNamePlayers);
+          SetInnerHtml($(cosd(playerClass, "name")), teamNamePlayers);
         }
 
-
-
-        SetInnerHtml($(`.p${t + 1}.score`), String(team.score));
+        SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
 
         if ($(".sf6.online").length > 0) {
           if (!player.twitter && !player.pronoun) {
@@ -321,33 +217,9 @@ LoadEverything().then(() => {
         }
 
 
-        SetInnerHtml($(`.p${t + 1} .flagcountry`), "");
+        SetInnerHtml($(cosd(playerClass, "flagcountry")), "");
 
-        SetInnerHtml($(`.p${t + 1} .flagstate`), "");
-        
-
-        await CharacterDisplay(
-          $(`.p${t + 1}.container .character_container`),
-          {
-            asset_key: "base_files/icon",
-            source: `score.1.team.${t + 1}`,
-            slice_character: [0, 1],
-          },
-          event
-        );
-
-
-
-        SetInnerHtml($(`.p${t + 1}.container .sponsor_icon`), "");
-
-        SetInnerHtml($(`.p${t + 1}.container .avatar`), "");
-
-        SetInnerHtml($(`.p${t + 1}.container .online_avatar`), "");
-
-        SetInnerHtml($(`.p${t + 1} .twitter`), "");
-        
-
-        SetInnerHtml($(`.p${t + 1}.container .sponsor-container`), "");
+        SetInnerHtml($(cosd(playerClass, "flagstate")), "");
 
 
       }
@@ -384,12 +256,17 @@ LoadEverything().then(() => {
       $("#next_set").hide()
     }
 
+    if (tsh_settings.phase_bestof){
     let phaseTexts = [];
-    if (data.score[window.scoreboardNumber].phase) phaseTexts.push(data.score[window.scoreboardNumber].phase);
-    if (data.score[window.scoreboardNumber].best_of_text) phaseTexts.push(data.score[window.scoreboardNumber].best_of_text);
+      if (data.score[window.scoreboardNumber].phase) phaseTexts.push(data.score[window.scoreboardNumber].phase);
+      if (data.score[window.scoreboardNumber].best_of_text) phaseTexts.push(data.score[window.scoreboardNumber].best_of_text);
 
-    SetInnerHtml($(".phase"), phaseTexts.join(" - "));
-    SetInnerHtml($("#bestof"), "Best of " + data.score[window.scoreboardNumber].best_of);
+      SetInnerHtml($(".phase"), phaseTexts.join(" - "));
+    } else {
+      SetInnerHtml($(".phase"), data.score[window.scoreboardNumber].phase);
+    }
+
+    SetInnerHtml($(".bestof"), "Best of " + data.score[window.scoreboardNumber].best_of);
   };
 });
 

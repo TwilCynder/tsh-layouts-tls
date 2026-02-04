@@ -56,7 +56,7 @@ let TSHPromise = LoadEverything(() => {
       1
     )
     .from(
-      ["#bestof"],{
+      [".bestof"],{
         duration: 1,
         autoAlpha: 0,
         ease: "power2.inOut"
@@ -297,7 +297,7 @@ let TSHPromise = LoadEverything(() => {
       text = data.score.best_of_text;
     }
 
-    SetInnerHtml($("#bestof"), "Crew Battle")
+    SetInnerHtml($(".bestof"), "Crew Battle")
 
   };
 }, jsonPromise);
