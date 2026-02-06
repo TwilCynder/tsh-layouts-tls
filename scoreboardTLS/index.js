@@ -143,7 +143,7 @@ LoadEverything().then(() => {
                 : ""
             );
             SetInnerHtml(
-              $(cosd(playerClass, "pronoun.chip")),
+              $(cosd(playerClass, "pronoun")),
               player.pronoun ? player.pronoun : ""
             );
             SetInnerHtml(

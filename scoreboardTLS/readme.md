@@ -8,7 +8,7 @@ Classes pour les infos relatives au match
 Classes pour infos relatives aux joueurs - toutes ces divs doivent se trouver dans une div englobante de classe "p1" OU avoir elles-mêmes la classe "p1" pour les infos J1 ; pareil pour le J2
 
 - name : nom du joueur / de la team, contient le sponsor, les pronoms et le L pour la grande finale
-- pronoun : inclut dans name ou pas selon la config - voir plus pas
+- pronoun : inclut dans name ou pas selon la config - voir plus bas
 - score 
 - twitter
 - seed

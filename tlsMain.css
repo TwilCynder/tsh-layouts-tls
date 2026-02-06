@@ -43,6 +43,7 @@
 }
 
 .logos {
+    position: absolute;
     width: 138px;
     height: 138px;
     z-index: 9;
