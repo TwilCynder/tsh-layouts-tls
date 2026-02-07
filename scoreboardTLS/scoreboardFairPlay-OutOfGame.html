@@ -12,16 +12,13 @@
     <div class="logos"></div>
 
     <div class="fade">
-        <img class="absol fpimg" src="../../../Assets/FairPlay/Overlay/OVERLAY in game.png">
-        <img class="absol fpimg" src="../../../Assets/FairPlay/Overlay/OVERLAY next game.png">
+        <img class="bg" src="../../../Assets/FairPlay/Overlay/OVERLAY in game.png">
+        
+        <script src ="../components/FairPlay/nextMatchGenerate.js"></script>
 
-        <div class="match-info-container">
-        <span class="match"></span> <span>-</span> <span class="bestof"></span>
-        </div>
+        <div class="bottom-info match-info"></div>
 
-        <div id = "next_set"></div>
-
-        <div id="casters_container">
+        <div class="bottom-info casters_container">
             <!-- <img src="../../../Assets/common/Overlay/mic-grey-2.png" class="float_child" height="50px" alt="ligma" /> -->
             <div id="caster_names_container" class="float_child"></div>
         </div>
@@ -37,7 +34,9 @@
     <script>
         window.settings = {
             display: {
-                standalone_pronoun: true
+                standalone_pronoun: true,
+                casters_separator: '<span class = "casters_separator">-</span>',
+                match_info_parts: ["match", "format"]
             }
         }
     </script>
