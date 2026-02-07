@@ -3,6 +3,7 @@ import { Carousel } from "../includeTLS/SIHCarousel.js";
 import { translateRound } from "../includeTLS/util.js";
 import { startTimeDisplay } from "../includeTLS/timeDisplayManager.js";
 import { loadSLT, updateSLTTeam } from "./js/SLT.js";
+import { updateNextMatch } from "../includeTLS/nextMatch.mjs";
 
 update_delay = 2000;
 let logo_interval = 10000;
@@ -15,7 +16,16 @@ const default_config = {
   display : {
     "inline_losers" : false,
     "inline_sponsor":  true,
-    "standalone_pronoun": false
+    "standalone_pronoun": false,
+    "match_info_parts": []
+  }
+}
+
+const match_info_functions = {
+  format : (data, settings) => {
+    const value = data.score[window.scoreboardNumber].best_of;
+    if (!value) return null;
+    return settings.display.first_to ? "First to " + value : "Best of " + value;
   }
 }
 
@@ -61,15 +71,10 @@ LoadEverything().then(() => {
 
     let casters = Object.values(data.commentary);
     console.log("Casters :", casters)
-    let html = ""
-    casters.forEach((commentator) => {
-      if (commentator.name){
-        html += `
+    let html = casters.map((commentator) => (commentator && commentator.name) ? `
         <span class = "caster_name">${commentator.name}</span>
-        `;
-      }
-    });
-    $("#caster_names_container").html(html);
+      ` : null).filter(v=>!!v).join(tsh_settings.display.casters_separator ?? "");
+    SetInnerHtml( $("#caster_names_container"), html)
 
     let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
 
@@ -234,39 +239,31 @@ LoadEverything().then(() => {
     } catch (e){
       console.error(e);
     }
-
     SetInnerHtml($(".match"), match);
-
-    try {
-      let nextMatch = data.streamQueue && data.streamQueue.toulouselaststock["2"];
-      console.log(nextMatch)
-      if (nextMatch && (nextMatch.team["1"] || nextMatch.team["2"])){
-        let t1 = nextMatch.team["1"];
-        let t2 = nextMatch.team["2"];
-        let text = 
-          `Prochain match : <span class = "next_set_name">${t1 ? t1.player["1"].name : "TBD"}</span> VS <span class = "next_set_name">${t2 ? t2.player["1"].name : "TBD"}</span>`;
-
-        $("#next_set").show()
-        SetInnerHtml($("#next_set"), text);
-      } else {
-        $("#next_set").hide()
-      }
-    } catch (e) {
-      //pas de stream queue
-      $("#next_set").hide()
-    }
-
-    if (tsh_settings.phase_bestof){
-    let phaseTexts = [];
-      if (data.score[window.scoreboardNumber].phase) phaseTexts.push(data.score[window.scoreboardNumber].phase);
-      if (data.score[window.scoreboardNumber].best_of_text) phaseTexts.push(data.score[window.scoreboardNumber].best_of_text);
-
-      SetInnerHtml($(".phase"), phaseTexts.join(" - "));
-    } else {
-      SetInnerHtml($(".phase"), data.score[window.scoreboardNumber].phase);
-    }
-
+    SetInnerHtml($(".phase"), data.score[window.scoreboardNumber].phase);
     SetInnerHtml($(".bestof"), "Best of " + data.score[window.scoreboardNumber].best_of);
+
+    if (tsh_settings.display.match_info_parts && tsh_settings.display.match_info_parts.length){
+      let matchInfoParts = [];
+      for (const partName of tsh_settings.display.match_info_parts){
+        let f = match_info_functions[partName];
+        if (f) {
+          matchInfoParts.push(f(data, tsh_settings));
+        } else {
+          let value = data.score[window.scoreboardNumber][partName];
+          if (value){
+            matchInfoParts.push(value);
+          }
+        }
+      }
+      console.log(matchInfoParts)
+      if (matchInfoParts.length > 0){
+        SetInnerHtml($(".match-info"), matchInfoParts.filter(v=>!!v).join(" - "))
+      }
+    }
+
+    updateNextMatch($, data);
+
   };
 });
 
