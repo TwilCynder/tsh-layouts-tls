@@ -8,14 +8,14 @@ export function updateNextMatch($, data){
         let text = 
             `Mezcaul vs Jesuischoq`;
 
-        $("#next_set").show()
-            SetInnerHtml($("#next_set"), text);
+        $(".next_set.container").show()
+            SetInnerHtml($(".next_set.content"), text);
         } else {
-            $("#next_set").hide()
+            $(".next_set.container").hide()
         }
     } catch (e) {
       //pas de stream queue
-      $("#next_set").hide()
+      $(".next_set.container").hide()
     }
 }
 /*

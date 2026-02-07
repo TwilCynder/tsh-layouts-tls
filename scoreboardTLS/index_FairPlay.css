@@ -37,12 +37,12 @@ body {
 
 .p1.name {
     left: 545px;
-    color: #A53C28;
+    color: var(--fp-orange);
 }
 
 .p2.name {
     right: 545px;
-    color: #008B57;
+    color: var(--fp-green);
 }
 
 .name {
@@ -73,13 +73,13 @@ body {
 
 .p1.pronoun {
     left: 65px;
-    color: #A53C28;
+    color: var(--fp-orange);
     
 }
 
 .p2.pronoun {
     right: 65px;
-    color: #008B57;
+    color: var(--fp-green);
 }
 
 .score {
@@ -135,9 +135,30 @@ body {
 
 .casters_container {
     left: 545px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#caster_names_container {
+    max-width: 100%;
 }
 
 .casters_separator {
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.mic_icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  mask-image: url(../commentators/icon_mic.svg);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background: black;
+  margin-top: 5px;
+  flex-shrink: 0;
 }

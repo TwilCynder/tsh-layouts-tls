@@ -1,5 +1,16 @@
-import { translateRound as translateRound_ } from "./util.js";
-import { Carousel as Carousel_ } from "./SIHCarousel.js";
+function RegisterAdditionalUpdate(f){
+    if (!window.additionalUpdates){
+        window.additionalUpdates = [f]
+    } else {
+        window.additionalUpdates.push(f);
+    }
+}
 
-window.translateRound = translateRound_;
-window.Carousel = Carousel_;
+function RunAdditionalUpdates(data, settings){
+    console.log(window.additionalUpdates)
+    if (window.additionalUpdates){
+        for (const f of window.additionalUpdates){
+            f(data, settings);
+        }
+    }
+}

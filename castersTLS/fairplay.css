@@ -1,0 +1,78 @@
+:root {
+    --fp-white: #ffffff;
+    --fp-black: #000000;
+    --fp-orange: #a53c28;
+    --fp-green: #008b57;
+}
+
+@font-face {
+    font-family: "Playfair";
+    src: url("../../../Assets/FairPlay/Fonts/PlayfairDisplay.ttf");
+}
+
+@font-face {
+    font-family: "Playfair Italic";
+    src: url("../../../Assets/FairPlay/Fonts/PlayfairDisplay-Italic.ttf");
+}
+
+@font-face {
+    font-family: "Bricolage";
+    src: url("../../../Assets/FairPlay/Fonts/bricolageGrotesque.ttf");
+}
+
+body {
+    font-family: Bricolage;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+
+    width: 1920px;
+    height: 1080px;;
+
+    background-color: yellow;
+}
+
+.name {
+    position: absolute;
+    bottom: 146px;
+    width: 378px;
+    height: 72px;
+
+    font-family: Bricolage;
+    font-weight: bold;
+    font-size: 44px;
+    text-transform: uppercase;
+}
+
+.c1.name {
+    left: 434px;
+    color: var(--fp-orange);
+}
+
+.c2.name {
+    left: 883px;
+    color: var(--fp-green);
+}
+
+.pronoun-twitter {
+    position: absolute;
+    bottom: 84px;
+    width: 388px;
+    height: 39px;
+    
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-family: "Playfair Italic";
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.c1.pronoun-twitter {
+    left: 434px;
+}
+
+.c2.pronoun-twitter {
+    left: 875;
+}
