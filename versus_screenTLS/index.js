@@ -1,25 +1,6 @@
 LoadEverything().then(() => {
     let startingAnimation = gsap
       .timeline({ paused: true })
-      .from(
-        [".phase.container"],
-        { duration: 0.8, opacity: "0", ease: "power2.inOut" },
-        0
-      )
-      .from([".match"], { duration: 0.8, opacity: "0", ease: "power2.inOut" }, 0)
-      .from(
-        [".score_container"],
-        { duration: 0.8, opacity: "0", ease: "power2.inOut" },
-        0
-      )
-      .from(
-        [".best_of.container"],
-        { duration: 0.8, opacity: "0", ease: "power2.inOut" },
-        0
-      )
-      .from([".vs"], { duration: 0.4, opacity: "0", scale: 4, ease: "out" }, 0.5)
-      .from([".p1.container"], { duration: 1, x: "-100px", ease: "out" }, 0)
-      .from([".p2.container"], { duration: 1, x: "100px", ease: "out" }, 0);
   
     Start = async (event) => {
       startingAnimation.restart();
