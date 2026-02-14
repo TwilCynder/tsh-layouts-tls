@@ -70,11 +70,19 @@ LoadEverything().then(() => {
     let oldData = event.oldData;
 
     let casters = Object.values(data.commentary);
-    console.log("Casters :", casters)
-    let html = casters.map((commentator) => (commentator && commentator.name) ? `
+    let div = $("#caster_names_container");
+    let casterNames = casters.map((commentator) => (commentator && commentator.name) ? `
         <span class = "caster_name">${commentator.name}</span>
-      ` : null).filter(v=>!!v).join(tsh_settings.display.casters_separator ?? "");
-    SetInnerHtml( $("#caster_names_container"), html)
+      ` : null).filter(v=>!!v);
+    console.log("Casters :", casterNames)
+    if (casterNames.length > 0){
+      div.show()
+      let html = casterNames.join(tsh_settings.display.casters_separator ?? "");
+      SetInnerHtml( div, html)
+    } else {
+      div.hide()
+    }
+    
 
     let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
 
