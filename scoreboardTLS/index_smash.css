@@ -48,6 +48,7 @@ body {
 #caster_names_container .text {
   display: flex;
   flex-direction: column;
+  align-items: baseline;
   width: 100%;
   height: 100%;
 }

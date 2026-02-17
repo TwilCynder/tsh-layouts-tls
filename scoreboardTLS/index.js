@@ -249,7 +249,7 @@ LoadEverything().then(() => {
     }
     SetInnerHtml($(".match"), match);
     SetInnerHtml($(".phase"), data.score[window.scoreboardNumber].phase);
-    SetInnerHtml($(".bestof"), "Best of " + data.score[window.scoreboardNumber].best_of);
+    SetInnerHtml($(".bestof"), data.score[window.scoreboardNumber].best_of ? "Best of " + data.score[window.scoreboardNumber].best_of : "");
 
     if (tsh_settings.display.match_info_parts && tsh_settings.display.match_info_parts.length){
       let matchInfoParts = [];
@@ -270,7 +270,9 @@ LoadEverything().then(() => {
       }
     }
 
-    updateNextMatch($, data);
+    console.log("ALALAOAOL")
+
+    updateNextMatch($, data, tsh_settings);
 
   };
 });
