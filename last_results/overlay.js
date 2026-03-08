@@ -62,7 +62,7 @@ $(() => {
                 'Content-Type': 'application/json',             
                 'accept' : 'application/json',             
                 'Authorization' : `Bearer ${token}`         
-            },         
+            },
             body: JSON.stringify({
                 'query': query,
                 'variables' : {
@@ -71,7 +71,7 @@ $(() => {
                 } 
             }),  
             
-        })     
+        })
         .then((response) => response.json())     
         .then((data) => {  
             $('#sets').empty();   
