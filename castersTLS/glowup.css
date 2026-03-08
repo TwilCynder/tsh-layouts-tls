@@ -1,0 +1,37 @@
+@font-face {
+    font-family: "Smiley";
+    src: url("../../../Assets/GlowUp/Font/SmileySans-Oblique.otf");
+}
+
+body {
+    font-family: Smiley;
+    color: #F362FF;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+
+    width: 1920px;
+    height: 1080px;;
+}
+
+.name {
+    position: absolute;
+    bottom: 177px;
+    width: 378px;
+    height: 72px;
+
+    font-size: 61px;
+    text-transform: uppercase;
+
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0 0 10px #F362FF, 0 0 3px #F362FF
+}
+
+.c1.name {
+    left: 266px;
+}
+
+.c2.name {
+    left: 1231px;
+    bottom: 193px;
+}

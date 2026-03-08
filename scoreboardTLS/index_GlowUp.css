@@ -1,0 +1,165 @@
+:root {
+    --fp-white: #ffffff;
+    --fp-black: #000000;
+    --fp-orange: #a53c28;
+    --fp-green: #008b57;
+}
+
+@font-face {
+    font-family: "Smiley";
+    src: url("../../../Assets/GlowUp/Font/SmileySans-Oblique.otf");
+}
+
+body {
+    font-family: Smiley;
+    color: white;
+    opacity: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+.logos {
+    position: absolute;
+    bottom: 40px;
+    left: 865;
+}
+
+.name {
+    position: absolute;
+    top: 28px;
+    width: 346px;
+    height: 78px;
+
+    font-size: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+
+    text-transform: uppercase;
+}
+
+.p1.name {
+    left: 500px;
+    transform: rotate(4.5deg);
+}
+
+.p2.name {
+    right: 500px;
+    transform: rotate(-4.5deg);
+}
+
+.name .text {
+    align-items: baseline;
+    gap: 10px;
+}
+
+.sponsor {
+    color: grey;
+}
+
+.pronoun {
+    font-size: 30px;
+}
+
+.score {
+    position: absolute;
+    top: 20px;
+    width: 65px;
+    height: 65px;
+
+    font-size: 70px;
+    font-family: "Smiley";
+    font-weight: bolder;
+
+    color: white;
+
+    line-height: 50px;
+    padding-bottom: 20px;
+
+    box-sizing: border-box;
+    filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 6px 2px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 -2px 4px rgba(0, 0, 0, 0.1));
+    
+}
+
+.p1.score {
+    left: 443px;
+}
+
+.p2.score {
+    right: 443px;
+}
+
+.bottom-info {
+    position: absolute;
+    top: 134px;
+
+    height: 42px;
+    width: 389px; 
+    
+    box-sizing: border-box;
+
+    padding-left: 25px;
+    padding-right: 25px;
+
+    font-size: 26px;
+    font-family: "Playfair Italic";
+    font-weight: bold;
+}
+
+.match-info {
+    right: 543px;
+}
+
+.bestof {
+    position: absolute;
+    color: black;
+    top: 100px;
+    width: 100px;
+    left: 800px;
+    font-size: 30px;
+}
+
+#casters_container {
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+#caster_names_container {
+  display: block;
+  height: 50px;
+}
+
+#caster_names_container .text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+
+.caster_name {
+  display: block;
+  height: 50%;
+  font-size: 23px;
+  color: var(--light-text);
+}
+
+.mic_icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  mask-image: url(../commentators/icon_mic.svg);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background: black;
+  margin-top: 5px;
+  flex-shrink: 0;
+}

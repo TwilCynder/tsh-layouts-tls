@@ -17,18 +17,23 @@ LoadEverything().then(() => {
         for (const [t, team] of teams.entries()) {
           const players = Object.values(team.player);
           for (const [p, player] of players.entries()) {
-            SetInnerHtml(
-              $(`.p${t + 1} .name`),
+            let name = await Transcript(player.name);
+            name = getPlayerName ? 
+              getPlayerName(name) :
               `
                 <span>
                     <div>
                       <span class='sponsor'>
                           ${player.team ? player.team : ""}
                       </span>
-                      ${await Transcript(player.name)}
+                      ${name}
                     </div>
                 </span>
               `
+
+            SetInnerHtml(
+              $(`.p${t + 1} .name`),
+              name
             );
   
             SetInnerHtml($(`.p${t + 1} .pronoun`), player.pronoun);
