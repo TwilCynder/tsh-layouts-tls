@@ -518,7 +518,7 @@ body {
   color : var(--tls-yellow)
 }
 
-#next_set {
+.next_set.container {
   position: absolute;
   top: 110px;
   left: 50%;

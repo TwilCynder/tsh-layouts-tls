@@ -4,6 +4,8 @@ function hide($){
 
 export function updateNextMatch($, data, settings){
     try {
+
+        console.log("Update next match")
         const stream = (data.score[window.scoreboardNumber].auto_update == "stream") ? (data.score[window.scoreboardNumber].station ?? settings.stream) : settings.stream;
         if (!stream) {hide($); return}
 
@@ -12,6 +14,8 @@ export function updateNextMatch($, data, settings){
 
         const nextMatch = streamQueue["2"];
         if (!nextMatch) {hide($); return};
+
+        console.log(nextMatch)
 
         if ((nextMatch.team["1"] || nextMatch.team["2"])){
             let t1 = nextMatch.team["1"];

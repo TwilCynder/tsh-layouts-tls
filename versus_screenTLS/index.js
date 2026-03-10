@@ -1,3 +1,5 @@
+import { translateRound } from "../includeTLS/util.js";
+
 LoadEverything().then(() => {
     let startingAnimation = gsap
       .timeline({ paused: true })
@@ -360,7 +362,8 @@ LoadEverything().then(() => {
   
       SetInnerHtml($(".tournament"), data.tournamentInfo.tournamentName);
       SetInnerHtml($(".event"), data.tournamentInfo.eventName);
-      SetInnerHtml($(".match"), data.score[window.scoreboardNumber].match);
+      console.log(data.score[window.scoreboardNumber].phase, data.score[window.scoreboardNumber].match)
+      SetInnerHtml($(".match"), data.score[window.scoreboardNumber].match ? await translateRound(data.score[window.scoreboardNumber].phase, data.score[window.scoreboardNumber].match) : "");
   
       SetInnerHtml(
         $(".phase:not(.container)"),
