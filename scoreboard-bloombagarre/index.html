@@ -1,0 +1,63 @@
+<!--
+Layout très fortement inspiré par le scoreboard traditionnel Super Smash Bros. Ultimate
+https://github.com/TournamentStreamHelper/TournamentStreamHelper-layouts/blob/main/scoreboard/ssbultimate.html
+sous license MIT
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="../include/globals.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+
+  <body>
+    <div class="players">
+      <div class="joueurs">
+        <div class="p1 player container fade_right">
+          <div class="score"></div>
+          <div class="name"></div>
+          <div class="character_container"></div>
+        </div>
+
+        <svg
+          width="38"
+          height="38"
+          viewBox="0 0 38 38"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 30.1299L13.435 35.6949C10.3616 38.7684 5.37854 38.7684 2.30509 35.6949C-0.768361 32.6215 -0.768359 27.6384 2.30509 24.565L7.87006 19L19 30.1299Z"
+            fill="white"
+          />
+          <path
+            d="M35.6949 24.565C38.7684 27.6384 38.7684 32.6215 35.6949 35.6949C32.6215 38.7684 27.6384 38.7684 24.565 35.6949L19 30.1299L30.1299 19L35.6949 24.565Z"
+            fill="white"
+          />
+          <path
+            d="M19 7.87006L7.87006 19L2.30509 13.435C-0.768363 10.3616 -0.768361 5.37854 2.30509 2.30509C5.37854 -0.768361 10.3616 -0.768359 13.435 2.30509L19 7.87006Z"
+            fill="white"
+          />
+          <path
+            d="M35.6949 2.30509C38.7684 5.37854 38.7684 10.3616 35.6949 13.435L30.1299 19L19 7.87006L24.565 2.30509C27.6384 -0.768363 32.6215 -0.768361 35.6949 2.30509Z"
+            fill="white"
+          />
+        </svg>
+
+        <div class="p2 player container fade_left">
+          <div class="character_container"></div>
+          <div class="name"></div>
+          <div class="score"></div>
+        </div>
+      </div>
+
+      <div class="phase-match fade">
+        <div class="phase"></div>
+        <div class="bullet">•</div>
+        <div class="match"></div>
+      </div>
+    </div>
+
+    <script src="../scoreboard/index.js"></script>
+  </body>
+</html>
