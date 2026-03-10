@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "National Park";
+  src: url("../include/NationalPark-Variable.ttf") format("truetype");
+  font-weight: 400 900;
+}
+
+:root {
+  --rouge-pns: #ff1b4c;
+  --noir: #1b0015;
+  --blanc: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "National Park";
+  opacity: 0;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+  background-size: cover;
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 16px 20px 16px 12px;
+
+  position: fixed;
+  top: 40px;
+  left: 32px;
+
+  background: var(--blanc);
+  border: 1px solid var(--noir);
+  box-shadow: 0px 2px 0px var(--noir);
+  border-radius: 28px;
+
+  width: 230px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.name {
+  line-height: 1;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.pronoun,
+.twitter,
+.team {
+  display: none;
+}

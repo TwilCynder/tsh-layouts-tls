@@ -1,0 +1,302 @@
+@font-face {
+  font-family: "National Park";
+  src: url("../include/NationalPark-Variable.ttf") format("truetype");
+  font-weight: 400 900;
+}
+
+:root {
+  --rouge-pns: #ff1b4c;
+  --noir: #1b0015;
+  --blanc: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.text {
+  transform-origin: left;
+  white-space: nowrap;
+}
+
+body {
+  font-family: "National Park";
+  opacity: 0;
+  overflow: hidden;
+  width: 1920px;
+  height: 1080px;
+  background-size: cover;
+}
+
+.players {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  left: 50%;
+  top: 40px;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.joueurs {
+  display: flex;
+  align-items: center;
+  gap: 72px;
+
+  position: relative;
+}
+
+.scores {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  font-size: 48px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  color: var(--blanc);
+  font-weight: 800;
+}
+
+.scores > *:not(svg) {
+  z-index: 2;
+}
+
+.scores svg {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.phase-match {
+  display: inline-flex;
+  gap: 0.5ch;
+  font-size: 13px;
+  line-height: 1;
+
+  width: fit-content;
+  background-color: var(--blanc);
+  border: 1px solid var(--noir);
+  box-shadow: 0 2px 0 var(--noir);
+  color: var(--noir);
+  border-radius: 99px;
+  padding: 6px 8px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.player-wrapper > .player.container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--blanc);
+  /*border: 1px solid var(--noir);
+  box-shadow: 0 2px 0 var(--noir);*/
+  color: var(--noir);
+
+  /*height: fit-content;*/
+  padding: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+}
+
+.player-wrapper {
+  position: relative;
+  width: 500px;
+  height: 64px;
+  background-color: var(--noir);
+}
+
+.player-wrapper:has(.p1) {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 20px 50%);
+}
+
+.player-wrapper > .player.container.p1 {
+  border-left: 0px;
+  padding-right: 24px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 20px 50%);
+}
+
+.player-wrapper:has(.p2) {
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 20px) 50%, 100% 100%, 0% 100%);
+}
+
+.player-wrapper > .player.container.p2 {
+  border-right: 0px;
+  padding-left: 24px;
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - 20px) 50%, 100% 100%, 0% 100%);
+}
+
+.player-wrapper > .player.container > div:not(.score) > .text:not(.text_empty) {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.name {
+  display: flex;
+  gap: 1ch;
+
+  overflow: hidden;
+  width: 100%;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.p1 .name {
+  justify-content: flex-end;
+}
+
+.p2 .extra {
+  flex-direction: row-reverse;
+}
+
+/*.extra .pronoun {
+  width: 100%;
+}*/
+
+/*.flag {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 32px;
+  height: 24px;
+}*/
+
+.character_container {
+  height: 100%;
+  flex-shrink: 0;
+  height: 28px;
+  width: 28px;
+}
+
+.character_container > .tsh_character > .tsh-center-image {
+  overflow: hidden;
+  background-size: 28px 28px;
+  height: 28px;
+  width: 28px;
+}
+
+.sponsor {
+  color: var(--rouge-pns);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -3%;
+}
+
+.losers {
+  display: inline-grid;
+  place-items: center;
+
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--noir);
+}
+
+/*.chips {
+  display: flex;
+  position: absolute;
+  top: 112px;
+  width: 500px;
+  height: 24px;
+  justify-content: right;
+  align-content: center;
+  overflow: hidden;
+}
+
+.chip {
+  overflow: hidden;
+  border-radius: calc(var(--border-radius) / 2);
+}
+
+.p1.chips {
+  left: 380px;
+}
+
+.p2.chips {
+  flex-direction: row-reverse;
+  left: 1040px;
+  justify-content: left;
+}
+
+.chip .text:not(.text_empty) {
+  margin-left: 4px;
+  margin-right: 4px;
+  height: 24px;
+  font-size: 18px;
+  padding-left: 12px;
+  padding-right: 12px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: calc(var(--border-radius) / 4);
+  min-width: unset;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flagcountry,
+.flagstate {
+  display: flex;
+  justify-content: center;
+}
+
+.flagstate .text,
+.flagcountry .text {
+  display: flex;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.p2 .flagstate .text,
+.p2 .flagcountry .text {
+  flex-direction: row-reverse;
+}
+
+.ssbu .p2 .flagstate .text,
+.ssbu .p2 .flagcountry .text,
+.roa2 .p2 .flagstate .text,
+.roa2 .p2 .flagcountry .text,
+.nasb2 .p2 .flagstate .text,
+.nasb2 .p2 .flagcountry .text {
+  flex-direction: row;
+  padding-left: 0 !important;
+}
+
+.ssbu .p1 .flagstate .text,
+.ssbu .p1 .flagcountry .text,
+.roa2 .p1 .flagstate .text,
+.roa2 .p1 .flagcountry .text,
+.nasb2 .p1 .flagstate .text,
+.nasb2 .p1 .flagcountry .text,
+.nasb2 .p1 .flagstate .text,
+.nasb2 .p1 .flagcountry .text {
+  padding-right: 0 !important;
+}
+
+.ssbu .p1 .flagstate .text,
+.ssbu .p1 .flagcountry .text,
+.roa2 .p1 .flagstate .text,
+.roa2 .p1 .flagcountry .text,
+.nasb2 .p1 .flagstate .text,
+.nasb2 .p1 .flagcountry .text {
+  flex-direction: row-reverse;
+}*/
+
+/*.p1 .sponsor {
+  color: var(--p1-sponsor-color);
+}*/
+
+/*.p2 .sponsor {
+  color: var(--p2-sponsor-color);
+}*/
