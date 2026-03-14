@@ -20,7 +20,7 @@ LoadEverything().then(() => {
           const players = Object.values(team.player);
           for (const [p, player] of players.entries()) {
             let name = await Transcript(player.name);
-            name = getPlayerName ? 
+            name = window.getPlayerName ? 
               getPlayerName(name) :
               `
                 <span>

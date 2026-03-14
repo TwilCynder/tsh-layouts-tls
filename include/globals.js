@@ -388,6 +388,12 @@ async function SetInnerHtml(element, html, settings = {}) {
   const currentText = he.decode(String(element.find(".text").html()).replace(/'/g, '"'));
   const newText = he.decode(String(html).replace(/'/g, '"'));
 
+  /*
+  console.log("========")
+  console.log(currentText)
+  console.log(newText)
+  */
+
   if (force === true || currentText !== newText) {
     const updateElement = (element, html, firstRun) => {
       element.find(".text").html(html);

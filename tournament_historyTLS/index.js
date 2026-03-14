@@ -27,9 +27,11 @@ LoadEverything().then(() => {
         JSON.stringify(oldData.score[window.scoreboardNumber].history_sets)
     ) {
       tournament_html = "";
+      console.log("ALALLAOLAOA", data.score[window.scoreboardNumber].history_sets)
       Object.values(data.score[window.scoreboardNumber].history_sets[window.PLAYER])
         .slice(0, 6)
         .forEach(async(sets, s) => {
+          console.log("KHDBVQJvychjqv", sets)
           tournament_html += `
           <div class="tournament${s + 1} tournament_container">
             <div class="info">

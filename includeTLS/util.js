@@ -3,7 +3,7 @@ let roundTranslation = {
       "Tour 1": "Top 24 Winner",
       "Quart": "Top 12 Winner"
     },
-    "8" : {
+    " 8" : {
       "Tour 1" : "Top 8 Loser"
     },
     "24": {
@@ -12,6 +12,7 @@ let roundTranslation = {
   }
   
 export function translateRound(phase, round){
+  console.log(phase, round);
   round = round.replace("Match de qualification", "Qualifier")  
   for (let p in roundTranslation){
       if (phase.includes(p)){

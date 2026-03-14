@@ -155,10 +155,12 @@ LoadEverything().then(() => {
                 ? `<span class="twitter_logo"></span>${String(player.twitter)}`
                 : ""
             );
+            /*
             SetInnerHtml(
               $(cosd(playerClass, "pronoun")),
               player.pronoun ? player.pronoun : ""
             );
+            */
             SetInnerHtml(
               $(cosd(playerClass, "seed")),
               player.seed ? `Seed ${player.seed}` : ""
