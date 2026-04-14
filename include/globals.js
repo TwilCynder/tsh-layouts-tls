@@ -394,6 +394,12 @@ async function SetInnerHtml(element, html, settings = {}) {
   console.log(newText)
   */
 
+  if (currentText.includes("caster_")){
+    console.log("---- SIH ----")
+    console.log(currentText, newText);
+  }
+
+
   if (force === true || currentText !== newText) {
     const updateElement = (element, html, firstRun) => {
       element.find(".text").html(html);

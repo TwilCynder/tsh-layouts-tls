@@ -33,6 +33,14 @@ body {
     left: 865;
 }
 
+#logo-sponsor1 {
+    background-image: url("../../../Assets/FairPlay/Overlay/LOGO_AMOS_COLOR_2.png");
+}
+
+#logo-sponsor2 {
+    background-image: url("../../../Assets/FairPlay/Overlay/logo\ CE.png");
+}
+
 .p1.name {
     left: 545px;
     color: var(--fp-orange);

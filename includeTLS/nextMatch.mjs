@@ -21,7 +21,7 @@ export function updateNextMatch($, data, settings){
             let t1 = nextMatch.team["1"];
             let t2 = nextMatch.team["2"];
             let text = 
-                `Prochain match : <span class = "next_set_name">${t1 ? t1.player["1"].name : "TBD"}</span> <span class="next-match-vs">VS</span> <span class = "next_set_name">${t2 ? t2.player["1"].name : "TBD"}</span>`;
+                `<span class="next_set_name">${t1 ? t1.player["1"].name : "TBD"}</span> <span class="next-match-vs">VS</span> <span class="next_set_name">${t2 ? t2.player["1"].name : "TBD"}</span>`;
 
             $(".next_set.container").show()
             SetInnerHtml($(".next_set.content"), text);

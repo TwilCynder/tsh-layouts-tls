@@ -3,6 +3,12 @@
         "base" :    [
             "logo-tournoi",
             "logo-tls"
+        ],
+        "sponsor2" : [
+            "logo-tournoi",
+            "logo-tls",
+            "logo-sponsor1",
+            "logo-sponsor2"
         ]
     },
     "current_logos_config" : "base"

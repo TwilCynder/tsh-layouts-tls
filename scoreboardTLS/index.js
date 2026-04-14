@@ -72,7 +72,7 @@ LoadEverything().then(() => {
     let casters = Object.values(data.commentary);
     let div = $("#caster_names_container");
     let casterNames = casters.map((commentator) => (commentator && commentator.name) ? `
-        <span class = "caster_name">${commentator.name}</span>
+        <span class="caster_name">${commentator.name}</span>
       ` : null).filter(v=>!!v);
     console.log("Casters :", casterNames)
     if (casterNames.length > 0){
@@ -271,8 +271,6 @@ LoadEverything().then(() => {
         SetInnerHtml($(".match-info"), matchInfoParts.filter(v=>!!v).join(" - "))
       }
     }
-
-    console.log("ALALAOAOL")
 
     updateNextMatch($, data, tsh_settings);
 

@@ -54,20 +54,24 @@ $(() => {
     //add_set("SnooSnoo", 2, "Nacy's Bitch", 1, 4);
               
     function load_sets(config, token){
-        console.log(config)
+        console.log(config, {             
+                'Content-Type': 'application/json',             
+                'accept' : 'application/json',
+                'Authorization' : `Bearer 845f5d34c0eef348657751d62eb6f5a0`         
+            },)
         console.log("Load sets");
         fetch('https://api.start.gg/gql/alpha', {         
             method: 'POST',         
             headers: {             
                 'Content-Type': 'application/json',             
-                'accept' : 'application/json',             
-                'Authorization' : `Bearer ${token}`         
+                'accept' : 'application/json',
+                'Authorization' : `Bearer 845f5d34c0eef348657751d62eb6f5a0`         
             },
             body: JSON.stringify({
                 'query': query,
                 'variables' : {
                     "slug": config.event,
-                    "setNum": config.sets + 1
+                    "setNum": config.sets * 2
                 } 
             }),  
             
@@ -78,10 +82,13 @@ $(() => {
             if (!data.data || !data.data.event){
                 throw data;
             }
+            const max = data.data.event.sets.nodes.length < config.sets ? data.data.event.sets.nodes.length : config.sets
             for (let i = 0; i < data.data.event.sets.nodes.length; i++){
                 let set = data.data.event.sets.nodes[i];
                 let p1 = set.slots[0].entrant.name;
+                if (!set.slots[0].standing) continue;
                 let p1score = set.slots[0].standing.stats.score.value;
+                if (!set.slots[1].standing) continue; 
                 let p2 = set.slots[1].entrant.name;
                 let p2score = set.slots[1].standing.stats.score.value;
                 add_set(p1, p1score, p2, p2score, i);
