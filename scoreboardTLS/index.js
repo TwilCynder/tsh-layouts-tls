@@ -123,7 +123,6 @@ LoadEverything().then(() => {
             if (window.SLT){
               updateSLTTeam(t, player.name);
             }
-            
 
             SetInnerHtml(
               $(cosd(playerClass, "flagcountry")),

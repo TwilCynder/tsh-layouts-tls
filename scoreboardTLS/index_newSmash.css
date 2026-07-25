@@ -1,0 +1,121 @@
+body {
+    font-family: Quicksand;
+    color: var(--tls-white);
+}
+
+.name {
+    font-family: BlueWinter;
+    
+    position: absolute;
+    top: 73px;
+    height: 43px;
+    width: 372px;
+    font-size: 34px;
+    
+    overflow: hidden;
+}
+
+.name .text {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    line-height: 123%;
+}
+
+.sponsor {
+    font-family: QuickSand;
+}
+
+.pronoun {
+    font-family: QuickSand;
+    font-size: 25px;
+}
+
+.p1.name {
+    left: 461px;
+}
+
+.p2.name {
+    right: 497px;
+}
+
+.score {
+    position: absolute;
+    top: 57px;
+    height: 60px;
+    width: 49px;
+    font-family: BlueWinter;
+    font-size: 53px;
+}
+
+.p1.score {
+    left: 362px;
+}
+
+.p2.score {
+    right: 396px;
+}
+
+.info {
+    position: absolute;
+    font-family: QuicksandBold;
+    color: var(--tls-purple);
+}
+
+.info.top {
+    top: 127px;
+    height: 35px;
+    font-size: 23px;
+}
+
+.match {
+    left: 638px;
+    width: 204px;
+}
+
+.bestof {
+    right: 665px;
+    width: 199px;
+}
+
+.info.bottom {
+    bottom: 5px;
+    width: 100%;
+}
+
+.tournament_name {
+    font-size: 20px;
+}
+
+#casters_container {
+    position: absolute;
+    top: 30px;
+    left: 15px;
+
+    display: flex;
+    flex-direction: row;
+
+    font-size: 25px;
+    font-family: QuicksandBold;
+    color: var(--tls-purple);
+}
+
+#caster_names_container {
+    display: block;
+    height: 50px;
+}
+
+#caster_names_container .text {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    width: 100%;
+    height: 100%;
+}
+
+.logos {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+}

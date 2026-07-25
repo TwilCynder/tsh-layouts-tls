@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="../include/globals.js"></script>
+        <link rel="stylesheet" href="../main.css" />
+        <link rel="stylesheet" href="../includeTLS/main.css" />
+        <link rel="stylesheet" href="./index_newSmash.css" />
+    </head>
+    <body class="fade_container">
+        <div class = "logos"></div>
+
+        <div class="fade anim_container_outer">
+            <div class="anim_container_inner"> 
+                <img class="absol bg" src="../../../Assets/common/Overlay/scoreboard.png">
+                
+                <div class="info bottom tournament_name"></div>
+                <div class="info top match"></div>
+                <div class="info top bestof"></div>
+
+                <div id = "casters_container">
+                    <img src= "../../../Assets/common/Overlay/mic-purple.png" class = "float_child" height = "50px" alt = "ligma"/>
+                    <div id = "caster_names_container" class = "float_child">
+                    </div>
+                </div>
+
+                <div class="p1 name"></div>
+                <div class="p1 score"></div>
+                <div class="p2 name"></div>
+                <div class="p2 score"></div>
+            </div>
+            <script>
+                window.settings = {
+                    display: {
+                        inline_sponsor: false
+                    }
+                }
+            </script>
+        </div>
+
+        <script src="index.js" type = "module"></script>
+    </body>
+</html>
