@@ -169,6 +169,11 @@ LoadEverything().then(() => {
               $(cosd(playerClass, "sponsor-container")),
               `<div class='sponsor-logo' style='background-image: url(../../${player.sponsor_logo})'></div>`
             );
+            console.log("PLAYER CONTROLLER", $(cosd(playerClass, "controller-container")), player.controller);
+            SetInnerHtml(
+              $(cosd(playerClass, "controller-container")),
+              `<div class="controller" ${player.controller ? `style="background-image: url(../../${player.controller.icon_path})"` : ""}></div>`
+            )
 
             SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
           }

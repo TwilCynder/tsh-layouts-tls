@@ -2,7 +2,7 @@ const updateCycle = 10000;
 
 function makeDateString(){
     let date = new Date();
-    return date.getHours() + ":" + date.getMinutes() + " CEST";
+    return date.getHours() + ":" + String(date.getMinutes()).padStart(2, "0") + " CEST";
 }
 
 function update(id){

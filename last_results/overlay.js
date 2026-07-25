@@ -54,18 +54,13 @@ $(() => {
     //add_set("SnooSnoo", 2, "Nacy's Bitch", 1, 4);
               
     function load_sets(config, token){
-        console.log(config, {             
-                'Content-Type': 'application/json',             
-                'accept' : 'application/json',
-                'Authorization' : `Bearer 845f5d34c0eef348657751d62eb6f5a0`         
-            },)
-        console.log("Load sets");
+        console.log("Load sets", token);
         fetch('https://api.start.gg/gql/alpha', {         
             method: 'POST',         
             headers: {             
                 'Content-Type': 'application/json',             
                 'accept' : 'application/json',
-                'Authorization' : `Bearer 845f5d34c0eef348657751d62eb6f5a0`         
+                'Authorization' : `Bearer ` + token      
             },
             body: JSON.stringify({
                 'query': query,

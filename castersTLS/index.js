@@ -47,13 +47,14 @@ LoadEverything(() => {
     }
 
     let casters = Object.values(data.commentary);
-    console.log("======\n", casters)
-    if (casters.length < 1 || !casters[1].name){
+    console.log("======\n", casters, casters.length)
+    if (casters.length % 2 == 1){
       logos.hide();
     } else {
       logos.show();
     }
 
+    let castersCount = 0;
     for (const [index, commentator] of casters.entries()) {
       if (commentator.name) {
         $(`.commentator${index}`).css("display", "");
@@ -76,9 +77,17 @@ LoadEverything(() => {
           $(`.commentator${index} .twitter`),
           commentator.twitter ? "@" + commentator.twitter : ""
         );
+        castersCount++;
       } else {
         $(`.commentator${index}`).css("display", "none");
       }
+    }
+
+    console.log("======\n", casters)
+    if (castersCount % 2 == 1){
+      logos.hide();
+    } else {
+      logos.show();
     }
   };
 });
