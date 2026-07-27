@@ -150,6 +150,7 @@ body {
 #caster_names_container {
     display: block;
     height: 50px;
+    width: 260px;
 }
 
 #caster_names_container .text {

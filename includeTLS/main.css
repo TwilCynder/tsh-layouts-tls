@@ -34,6 +34,7 @@ body {
     top: 0;
     width: 1920px;
     height: 1080px;
+    box-sizing: border-box;
 }
   
 .fullsize {

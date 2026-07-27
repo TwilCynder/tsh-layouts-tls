@@ -1,0 +1,93 @@
+.commentators_outer_container {
+}
+
+.commentators_outer_container.duo {
+    background-image: url(../../../Assets/common/Overlay/CASTERS_2.png);
+    background-size: cover;
+}
+
+.commentators_outer_container.solo {
+    position: absolute;
+    bottom: 84px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 200px;
+    row-gap: 70px;
+    flex-wrap: wrap;
+}
+
+.commentator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--tls-white);
+}
+
+.duo .commentator {
+    position: absolute;
+    top: 909px;
+    width: 471px;
+    height: 87px;
+}
+
+.duo .c1 {
+    left: 357px;
+}
+
+.duo .c2 {
+    right: 388px;
+}
+
+.solo .commentator {
+    height: 87px;
+    width: 510px;
+    overflow: visible;
+}
+
+.caster_bg {
+    position: absolute;
+    transform: translateX(-229px);
+    z-index: -1;
+}
+
+.caster_bg2 {
+    position: absolute;
+    top: -55%;
+    left: -45%;
+    width: 158%;
+    height: 207%;
+    opacity: 50%;
+    z-index: -1;
+}
+
+.name {
+    width: 100%;
+
+    font-family: BlueWinter;
+    font-size: 34px;
+}
+
+.name .text {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.team {
+    font-family: Quicksand;
+}
+
+.pronoun {
+    font-family: Quicksand;
+    font-size: 25px;
+}
+
+.twitter {
+    font-family: Quicksand;
+    font-size: 27px;
+}
