@@ -1,0 +1,38 @@
+.name {
+    background-color: red;
+    position: absolute;
+    top: 863px;
+    width: 447px;
+    height: 65px;
+
+    font-size: 34px;
+    font-family: BlueWinter;
+    color: var(--tls-white);
+}
+
+
+
+.p1.name {
+    left: 159px;
+}
+
+.p2.name {
+    right: 123px;
+}
+
+.sponsor {
+    font-family: Quicksand;
+}
+
+.pronoun {
+    font-family: Quicksand;
+    font-size: 25px;
+}
+
+.score {
+    position: absolute;
+}
+
+.bestof {
+    
+}
