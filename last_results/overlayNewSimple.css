@@ -1,24 +1,21 @@
-@font-face {
-    font-family: "Smash";
-    src: url("../../../Assets/common_old/Fonts/Gobold\ Regular.otf");
-}
-
 body {
-    color: aliceblue;
+    color: var(--tls-white);
     padding: 5vh;
-    font-size: 6vh;
-    font-family: Smash;
 }
 
 .titel {
     background-color: rgba(0, 0, 0, 0.85);
     border-radius: 25px;
     padding: 3vh;
-    font-size: 8vh;
+    font-size: 9.5vh;
+    font-family: BlueWinter;
+    text-align: center;
 }
 
 .result {
-    background: linear-gradient(to right, #EFD000, #3D0082);
+    background-color: var(--tls-purple);
+    font-family: QuicksandBold;
+    font-size: 5vh;
     border-radius: 25px;
     margin-left: 5vh;
     margin-right: 5vh;

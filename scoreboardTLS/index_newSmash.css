@@ -57,6 +57,18 @@ body {
     right: 396px;
 }
 
+.losers {
+    font-family: Quicksand;
+}
+
+.losers:before {
+  content:"[";
+}
+
+.losers:after {
+  content:"]";
+}
+
 .info {
     position: absolute;
     font-family: QuicksandBold;
@@ -142,9 +154,12 @@ body {
     display: flex;
     flex-direction: row;
     
-    font-size: 25px;
+    font-size: 30px;
     font-family: QuicksandBold;
     color: var(--tls-purple);
+
+      filter: drop-shadow(0 2px 2px var(--tls-white))
+    drop-shadow(0 3px 1px var(--tls-white))
 }
 
 #caster_names_container {

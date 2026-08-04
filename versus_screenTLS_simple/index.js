@@ -14,6 +14,38 @@ LoadEverything().then(() => {
     },
     0
   )
+  .from(
+    [".fade_up"],
+    {
+      duration: 0.8,
+      autoAlpha: 0,
+      y: "20px",
+      ease: "power2.out",
+    },
+    0
+  )
+  .from(
+    [".fade_dl"],
+    {
+      duration: 0.8,
+      autoAlpha: 0,
+      y: "-20px",
+      x: "20px",
+      ease: "power2.out",
+    },
+    0
+  )
+  .from(
+    [".fade_dr"],
+    {
+      duration: 0.8,
+      autoAlpha: 0,
+      y: "-20px",
+      x: "-20px",
+      ease: "power2.out",
+    },
+    0
+  )
   
   
   
