@@ -5,16 +5,37 @@
         <link rel="stylesheet" href="../includeTLS/main.css" />
         <link rel="stylesheet" href="./index.css" />
     </head>
-    <body class = "">
+    <body class = "fade_container">
         <div class="fullsize fade">
             <img class="bg" src="../../../Assets/common/Overlay/VS_1.png"/>
 
-            <div class="p1 name"></div>
-            <div class="p1 seed"></div>
+            <div class="p1 container name"></div>
+            <div class="p1 container seed-info"></div>
             <div class="p1 score"></div>
-            <div class="p2 name"></div>
-            <div class="p2 seed"></div>
+            <div class="p2 container name"></div>
+            <div class="p2 container seed-info"></div>
             <div class="p2 score"></div>
+
+            <div class="tournament"></div>
+            <div class="match"></div>
+            <div class="best_of"></div>
+
+            <script>
+                function spanify(text, f){
+                    return text ? "<span>" + (f ? f(text) : text) + "</span>" : null
+                }
+
+                function separatedSpans(separator, ...texts){
+                    return texts.map(([text, f]) => spanify(text, f)).filter(v=>!!v).join(separator);
+                }
+
+                window.settings = {
+                    perPlayerElements: [
+                        {selector: "seed-info", perPlayer: true, content: ({player}) => separatedSpans(" - ", [player.seed, t=>"Seed " + t], [player.twitter, t => "@"+t])}
+                    ]
+                }
+            </script>
+
             <script src="index.js" type="module"></script>
         </div>
 

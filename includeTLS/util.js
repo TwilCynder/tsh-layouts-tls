@@ -13,6 +13,7 @@ let roundTranslation = {
 
 export function translateRound(phase, round){
   console.log(phase, round);
+  if (!round) return "";
   round = round.replace("Match de qualification", "Qualifier")  
   for (let p in roundTranslation){
     if (phase.includes(p)){

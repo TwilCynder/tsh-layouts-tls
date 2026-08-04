@@ -41,7 +41,7 @@ LoadEverything(() => {
             
             let castersDivs = "", globalClasss = null;
             
-            if (commentators.length == 2 && false){
+            if (commentators.length == 2){
                 castersDivs = `
                     <div class="commentator c1">
                         <div class="name"></div>

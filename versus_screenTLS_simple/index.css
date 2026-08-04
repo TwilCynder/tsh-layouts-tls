@@ -1,5 +1,4 @@
 .name {
-    background-color: red;
     position: absolute;
     top: 863px;
     width: 447px;
@@ -8,9 +7,20 @@
     font-size: 34px;
     font-family: BlueWinter;
     color: var(--tls-white);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-
+.name .text {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+    line-height: 123%;
+    height: unset;
+}
 
 .p1.name {
     left: 159px;
@@ -29,10 +39,93 @@
     font-size: 25px;
 }
 
-.score {
+.seed-info {
     position: absolute;
+    top: 942px;
+    width: 429px;
+    height: 34px;
+
+    font-family: QuicksandBold;
+    font-size: 28px;
+
+    box-sizing: border-box;
 }
 
-.bestof {
-    
+.p1.seed-info {
+    left: 170px;
+}
+
+.p2.seed-info {
+    right: 135px;
+}
+
+.seed-info .text {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+    gap: 10px;
+    line-height: 106%;
+    padding-left: 50px;
+    padding-right: 50px;
+    box-sizing: border-box;
+}
+
+.p2.seed-info .text {
+    flex-direction: row-reverse;
+}
+
+.score {
+    position: absolute;
+    top: 869px;
+    width: 67px;
+    height: 89px;
+    font-family: BlueWinter;
+    font-size: 72px;
+    color: var(--tls-white)
+}
+
+.p1.score {
+    left: 676px;
+}
+
+.p2.score {
+    right: 639px;
+}
+
+.match {
+    position: absolute;
+    top: 105px;
+    width: 410px;
+    height: 60px;
+    left: 50.5%;
+    transform: translateX(-50%);
+
+    font-family: BlueWinter;
+    font-size: 34px;
+    color: var(--tls-white);
+}
+
+.best_of {
+    position: absolute;
+    top: 175px;
+    width: 227px;
+    height: 43px;
+    left: 50.5%;
+    transform: translateX(-50%);
+
+    font-family: Quicksand;
+    font-size: 25px;
+}
+
+.tournament {
+    position: absolute;
+    top: 52px;
+    width: 227px;
+    height: 43px;
+    left: 50.5%;
+    transform: translateX(-50%);
+
+    font-family: Quicksand;
+    font-size: 25px;
 }

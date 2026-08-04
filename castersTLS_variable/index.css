@@ -18,6 +18,8 @@
     gap: 200px;
     row-gap: 70px;
     flex-wrap: wrap;
+
+    padding-left: 75px;
 }
 
 .commentator {
