@@ -78,25 +78,23 @@ LoadEverything().then(() => {
     } else {
       for (const [index, team] of Object.entries(data.score[window.scoreboardNumber].team)){
         const playerClass = "p"+index;
+        let players = Object.values(team.player);
         let names = [];
-        for (const [p, player] of Object.values(team.player).entries()) {
+        for (const player of Object.values(team.player)) {
           if (player && player.name) {
             names.push(player.name);
           }
         }
         let teamNamePlayers = names.join(" / ");
+
         SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
 
         let seed = team.player["1"].seed;
         let seedText = seed ? "Seed " + seed : "";
 
-        if (team.teamName){
-          SetInnerHtml($(cosd(playerClass, "name")), await Transcript(team.teamName));
-          SetInnerHtml($(cosd(playerClass, "seed-info")), [teamNamePlayers, seedText].filter(v=>!!v).join(" - "));
-        } else {
-          SetInnerHtml($(cosd(playerClass, "name")), await Transcript(teamNamePlayers));
-          SetInnerHtml($(cosd(playerClass, "seed-info")), seedText);
-        }
+        SetInnerHtml($(cosd(playerClass, "name")), await Transcript(team.teamName ?? teamNamePlayers));
+
+        
         
 
         let name = team.teamName ?? teamNamePlayers;
