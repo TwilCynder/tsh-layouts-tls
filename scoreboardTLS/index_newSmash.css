@@ -71,7 +71,7 @@ body {
 
 .info {
     position: absolute;
-    font-family: QuicksandBold;
+    font-family: Quicksand;
     color: var(--tls-purple);
 }
 

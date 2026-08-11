@@ -216,7 +216,7 @@ LoadEverything().then(() => {
             ${teamNamePlayers}
             ${losersStr}
           `);
-          carousel.selector = `.p${t + 1}.container .name`
+          carousel.selector = cosd(playerClass, "name");
 
           carousel.startRotation(10000);
         } else if (team.teamName && tsh_settings.forceTeamDisplay == "teamName") {

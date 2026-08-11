@@ -58,8 +58,6 @@ LoadEverything().then(() => {
     let oldData = event.oldData;
     
     let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
-    
-    console.log("SEETINGS", tsh_settings.test)
 
     if (!isTeams){
       for  (const [index, team] of Object.entries(data.score[window.scoreboardNumber].team)){ //we can't have more than two teams in TSH, right ???
@@ -67,7 +65,7 @@ LoadEverything().then(() => {
         const playerClass = "p"+index;
         SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
         SetInnerHtml($(cosd(playerClass, "name")), `<span class="sponsor">${player.team || ""}</span>${await Transcript(player.name)}<span class="pronoun">${player.pronoun || ""}</span>`);
-        SetInnerHtml($(cosd(playerClass, "seed")), "Seed " + player.seed);
+        //SetInnerHtml($(cosd(playerClass, "seed")), "Seed " + player.seed);
 
         if (tsh_settings.perPlayerElements){
           const fArgs = {player, team};
@@ -77,28 +75,38 @@ LoadEverything().then(() => {
         }
         
       }
+    } else {
+      for (const [index, team] of Object.entries(data.score[window.scoreboardNumber].team)){
+        const playerClass = "p"+index;
+        let names = [];
+        for (const [p, player] of Object.values(team.player).entries()) {
+          if (player && player.name) {
+            names.push(player.name);
+          }
+        }
+        let teamNamePlayers = names.join(" / ");
+        SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
+
+        let seed = team.player["1"].seed;
+        let seedText = seed ? "Seed " + seed : "";
+
+        if (team.teamName){
+          SetInnerHtml($(cosd(playerClass, "name")), await Transcript(team.teamName));
+          SetInnerHtml($(cosd(playerClass, "seed-info")), [teamNamePlayers, seedText].filter(v=>!!v).join(" - "));
+        } else {
+          SetInnerHtml($(cosd(playerClass, "name")), await Transcript(teamNamePlayers));
+          SetInnerHtml($(cosd(playerClass, "seed-info")), seedText);
+        }
+        
+
+        let name = team.teamName ?? teamNamePlayers;
+        SetInnerHtml($(cosd(playerClass, "name")), await Transcript(name));
+
+      }
+
+
+
     }
-    
-    /*
-    ${
-    player.team ? (tsh_settings.display.inline_sponsor ? player.team + " | " : 
-    `
-    <span class="sponsor">
-    ${player.team}
-    </span> 
-    `) : ""
-    }
-    ${await Transcript(player.name)}
-    
-    ${ (tsh_settings.display.standalone_pronoun) ? "" :
-    `
-    <span class="pronoun scoreboard_pronoun">
-    ${player.pronoun ? player.pronoun : ""}
-    </span>
-    `
-    } 
-    ${team.losers ? (tsh_settings.display.inline_losers ? " [L]" : "<span class='losers'>L</span>") : ""}
-    */
     
     SetInnerHtml($(".tournament"), data.tournamentInfo.tournamentName);
     SetInnerHtml($(".event"), data.tournamentInfo.eventName);

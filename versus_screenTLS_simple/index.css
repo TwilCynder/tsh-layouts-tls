@@ -49,6 +49,7 @@
     font-size: 28px;
 
     box-sizing: border-box;
+    color: var(--tls-purple);
 }
 
 .p1.seed-info {
