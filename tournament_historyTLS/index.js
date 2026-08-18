@@ -27,11 +27,9 @@ LoadEverything().then(() => {
         JSON.stringify(oldData.score[window.scoreboardNumber].history_sets)
     ) {
       tournament_html = "";
-      console.log("ALALLAOLAOA", data.score[window.scoreboardNumber].history_sets)
       Object.values(data.score[window.scoreboardNumber].history_sets[window.PLAYER])
         .slice(0, 6)
         .forEach(async(sets, s) => {
-          console.log("KHDBVQJvychjqv", sets)
           tournament_html += `
           <div class="tournament${s + 1} tournament_container">
             <div class="info">
@@ -41,12 +39,12 @@ LoadEverything().then(() => {
                 <div class="tournament_name"></div>
                 <div class="event_name"></div>
               </div>
+              <div class="padding"></div>
             </div>
           </div>`;
         });
       $(".content").html(tournament_html);
 
-      startingAnimation = gsap.timeline({paused: false})
       for (const [s, tournament] of Object.values(
         data.score[window.scoreboardNumber].history_sets[window.PLAYER]
       )
@@ -81,14 +79,14 @@ LoadEverything().then(() => {
               tournament.placement
             )}</span><span class="num_entrants">/${tournament.entrants}</span>`
         );
+        startingAnimation = gsap.timeline({paused: false})
         startingAnimation.from(
           $(`.tournament${s + 1}`),
           { x: -100, autoAlpha: 0, duration: 0.3 },
           0.2 + 0.2 * s
         );
+        startingAnimation.restart();
       }
-      console.log("restart animation")
-      startingAnimation.restart();
     }
   };
 });

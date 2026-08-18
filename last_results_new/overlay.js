@@ -116,6 +116,7 @@ function load_sets(config, token){
         for (let i = 0; i < n; i++){
             FitText($(`.result#r${i} .names`));
         }
+        console.log("Updated")
     })
     .catch(err => {console.error(err)});
 }
@@ -128,6 +129,21 @@ function load_sets(config, token){
 function stripURL(url){
     return url.split("start.gg/")[1];
 }
+
+gsap.config({ nullTargetWarn: false, trialWarn: false });
+
+let startingAnimation = gsap
+    .timeline({ paused: true })
+    .from([".logo"], { duration: 0.5, autoAlpha: 0, ease: "power2.inOut" }, 0.5)
+    .from(
+        [".fade"],
+        {
+        duration: 0.8,
+        autoAlpha: 0,
+        ease: "power2.out",
+        },
+        0
+    )
 
 await Promise.all([
     fetch("./config.json"),
@@ -143,7 +159,7 @@ await Promise.all([
     }
     )))
     
-    .then(([config, secret, tsh_settings]) => {
+    .then(async ([config, secret, tsh_settings]) => {
         if (!secret.token){
             console.error("No token found");
             return;
@@ -160,10 +176,11 @@ await Promise.all([
         if (!config.event) return;
         if (config.event.includes("start.gg")) config.event = stripURL(config.event);
 
-        load_sets_();
-        setTimeout(() => {
+        await load_sets_();
+        startingAnimation.restart();
+        setInterval(() => {
             load_sets_();
-        }, 15000);
+        }, 20000);
     });
 
     //$("#R1").html(res);

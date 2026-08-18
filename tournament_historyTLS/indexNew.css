@@ -1,35 +1,15 @@
 body {
-  font-family: BlueWinter;
+  font-family: QuicksandBold;
   font-weight: bold;
   opacity: 0;
   overflow: hidden;
   margin: 0;
   width: 1920px;
   height: 1080px;
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 3px 1px rgba(0, 0, 0, 0.14))
-    drop-shadow(0 1px 5px rgba(0, 0, 0, 0.12))
-    drop-shadow(0 -1px 2px rgba(0, 0, 0, 0.1));
   letter-spacing: 1;
 }
 
-.player1_content {
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  width: 100%;
-  height: 100vh;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.player2_content {
+.content {
   position: absolute;
   top: 0px;
   left: 50%;
@@ -50,21 +30,20 @@ body {
   width: 100%;
   height: 100px;
   flex-direction: row;
-  background-color: var(--tls-purple);
-  border-radius: 0px;
   justify-content: flex-start;
   box-sizing: border-box;
 }
 
-.player1_content .info {
+.player2_content .info {
   flex-direction: row-reverse;
 }
 
 .tournament_container {
   width: 45%;
-  color: var(--text-color);
+  background-color: var(--tls-purple);
+  color: var(--tls-white);
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 30px;
 }
 
 .placement {
@@ -97,15 +76,6 @@ body {
   flex-grow: 1;
   overflow: hidden;
   display: border-box;
-
-}
-
-.player1_content .tournament_info {
-  padding-left: 32px;
-}
-
-.player2_content .tournament_info {
-  padding-right: 32px;
 }
 
 .tournament_name {
@@ -131,18 +101,6 @@ body {
 .tournament_logo {
   display: flex;
   justify-content: center;
-}
-
-.p1 .tournament_logo {
-  -webkit-mask-image: -webkit-linear-gradient(
-    right,
-    #ffffff 0%,
-    #ffffff 80%,
-    #ffffff00 100%
-  );
-}
-
-.p2 .tournament_logo {
   -webkit-mask-image: -webkit-linear-gradient(
     left,
     #ffffff 0%,
@@ -150,8 +108,13 @@ body {
     #ffffff00 100%
   );
 }
+
 .logo {
   width: 160px;
   height: 160px;
   background-size: contain;
+}
+
+.padding {
+  width: 32px;
 }
