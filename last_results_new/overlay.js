@@ -51,6 +51,7 @@ const query = `
 
 const defaultConfig = {
     sets: 5,
+    sggog_address: 54301
 }
 
 let setsContainer = $("#sets");
@@ -130,6 +131,10 @@ function stripURL(url){
     return url.split("start.gg/")[1];
 }
 
+function getLocalhostURL(port){
+    return "http://localhost:" + port
+}
+
 gsap.config({ nullTargetWarn: false, trialWarn: false });
 
 let startingAnimation = gsap
@@ -160,14 +165,32 @@ await Promise.all([
     )))
     
     .then(async ([config, secret, tsh_settings]) => {
-        if (!secret.token){
-            console.error("No token found");
-            return;
-        }
-
         config = Object.assign(defaultConfig, config, window.settings ?? {});
 
-        const load_sets_ = () => load_sets(config, secret.token)
+        let token = secret.token;
+        if (!token){
+            if (config)
+            console.log("No token found in secrets file, trying to use sgg-oauth-gate");
+            const url = (typeof config.sggog_address === "number" ? getLocalhostURL(config.sggog_address) : config.sggog_address) + "/token"
+
+            const res = await fetch(url)
+            if (!res.ok){
+                const data = await res.json().catch(_ => ({err: null}))
+                console.error("Request to SGGOG at URL", url, "failed with code", res.status, data.err ? ": " + data.err : "");
+                return;
+            }
+            const data = await res.json();
+            token = data.token;
+            if (!token){
+                console.error("No tken found in SGGOG response");
+                return;
+            }
+            console.log("Token obtained from SGGOG")
+        }
+
+        console.log("Token :", token);
+
+        const load_sets_ = () => load_sets(config, token)
 
         if (tsh_settings && tsh_settings.TOURNAMENT_URL){
             config.event = config.event ?? tsh_settings.TOURNAMENT_URL;
