@@ -5,50 +5,11 @@ LoadEverything().then(() => {
   
   let startingAnimation = gsap
   .timeline({ paused: true })
-  .from(
-    [".fade"],
-    {
-      duration: 0.8,
-      autoAlpha: 0,
-      ease: "power2.out",
-    },
-    0
-  )
-  .from(
-    [".fade_up"],
-    {
-      duration: 0.8,
-      autoAlpha: 0,
-      y: "20px",
-      ease: "power2.out",
-    },
-    0
-  )
-  .from(
-    [".fade_dl"],
-    {
-      duration: 0.8,
-      autoAlpha: 0,
-      y: "-20px",
-      x: "20px",
-      ease: "power2.out",
-    },
-    0
-  )
-  .from(
-    [".fade_dr"],
-    {
-      duration: 0.8,
-      autoAlpha: 0,
-      y: "-20px",
-      x: "-20px",
-      ease: "power2.out",
-    },
-    0
-  )
-  
-  
-  
+  .from([".fade"], {duration: 0.8, autoAlpha: 0, ease: "power2.out"}, 0)
+  .from([".fade_down"], {duration: 0.8, autoAlpha: 0, y: "-40px", ease: "power2.out"}, 0)
+  .from([".fade_upleft"], {duration: 0.8, autoAlpha: 0, y: "40px", x: "-40px", ease: "power2.out"}, 0)
+  .from([".fade_upright"], {duration: 0.8, autoAlpha: 0, y: "40px", x: "40px", ease: "power2.out"}, 0)
+
   Start = async (event) => {
     startingAnimation.restart();
   };
@@ -61,6 +22,7 @@ LoadEverything().then(() => {
 
     if (!isTeams){
       for  (const [index, team] of Object.entries(data.score[window.scoreboardNumber].team)){ //we can't have more than two teams in TSH, right ???
+        if (tsh_settings.player && tsh_settings.player != index) continue;
         const player = team.player["1"] ?? {};
         const playerClass = "p"+index;
         SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
@@ -78,7 +40,6 @@ LoadEverything().then(() => {
     } else {
       for (const [index, team] of Object.entries(data.score[window.scoreboardNumber].team)){
         const playerClass = "p"+index;
-        let players = Object.values(team.player);
         let names = [];
         for (const player of Object.values(team.player)) {
           if (player && player.name) {
@@ -89,13 +50,7 @@ LoadEverything().then(() => {
 
         SetInnerHtml($(cosd(playerClass, "score")), String(team.score));
 
-        let seed = team.player["1"].seed;
-        let seedText = seed ? "Seed " + seed : "";
-
-        SetInnerHtml($(cosd(playerClass, "name")), await Transcript(team.teamName ?? teamNamePlayers));
-
-        
-        
+        SetInnerHtml($(cosd(playerClass, "name")), await Transcript(team.teamName ?? teamNamePlayers)); 
 
         let name = team.teamName ?? teamNamePlayers;
         SetInnerHtml($(cosd(playerClass, "name")), await Transcript(name));
@@ -106,6 +61,7 @@ LoadEverything().then(() => {
 
     }
     
+    if (tsh_settings.player) return;
     SetInnerHtml($(".tournament"), data.tournamentInfo.tournamentName);
     SetInnerHtml($(".event"), data.tournamentInfo.eventName);
     SetInnerHtml($(".match"), translateRound(data.score[window.scoreboardNumber].phase, data.score[window.scoreboardNumber].match));
