@@ -1,27 +1,5 @@
-function FitText(target) {
-  console.log(target)
-  document.fonts.ready.then(() => {
-    if (target == null) return;
-    if (target.css("font-size") == null) return;
-    if (target.css("width") == null) return;
-
-    let textElement = target.find(".text");
-
-    if (textElement.text().trim().toLowerCase() == "undefined") {
-      textElement.html("");
-    }
-
-    textElement.css("transform", "");
-    let scaleX = 1;
-
-    console.log(target.width(), textElement[0].scrollWidth)
-
-    if (textElement[0].scrollWidth * scaleX > target.width()) {
-      scaleX = target.width() / textElement[0].scrollWidth;
-      textElement.css("transform", "scaleX(" + scaleX + ")");
-    }
-  });
-}
+import { FitText } from "../includeTLS/DOMUtil.js";
+import { loadJSONOptional, loadSecrets, loadSettings, loadTSHUserSettings, SGGOGToken } from "../includeTLS/independent-script-util.js";
 
 const query = `         
     query Query($slug: String, $setNum: Int) {
@@ -131,10 +109,6 @@ function stripURL(url){
     return url.split("start.gg/")[1];
 }
 
-function getLocalhostURL(port){
-    return "http://localhost:" + port
-}
-
 gsap.config({ nullTargetWarn: false, trialWarn: false });
 
 let startingAnimation = gsap
@@ -151,55 +125,41 @@ let startingAnimation = gsap
     )
 
 await Promise.all([
-    fetch("./config.json"),
-    fetch("./secret.json"),
-    fetch('../../user_data/settings.json'),
-])
-    .then( results => Promise.all(results.map(async (response) => {
-        if (!response.ok){
-            console.warn("Could not load file", response.url)
-            return {};
-        }
-        return await response.json();
-    }
-    )))
-    
-    .then(async ([config, secret, tsh_settings]) => {
-        config = Object.assign(defaultConfig, config, window.settings ?? {});
-
+    loadTSHUserSettings(),
+    loadSecrets(),
+    loadSettings(defaultConfig)
+])  
+    .then(async ([tshUserSettings, secret, config]) => {
+        console.log(config)
         let token = secret.token;
         if (!token){
-            if (config)
-            console.log("No token found in secrets file, trying to use sgg-oauth-gate");
-            const url = (typeof config.sggog_address === "number" ? getLocalhostURL(config.sggog_address) : config.sggog_address) + "/token"
-
-            const res = await fetch(url)
-            if (!res.ok){
-                const data = await res.json().catch(_ => ({err: null}))
-                console.error("Request to SGGOG at URL", url, "failed with code", res.status, data.err ? ": " + data.err : "");
+            if (config.sggog_address){
+                console.log("No token found in secrets file, trying to use sgg-oauth-gate");
+            } else {
+                console.error("No token found (no SGGOG config specified)");
                 return;
             }
-            const data = await res.json();
-            token = data.token;
-            if (!token){
-                console.error("No tken found in SGGOG response");
-                return;
-            }
-            console.log("Token obtained from SGGOG")
+            
+            token = await SGGOGToken(config.sggog_address);
+            if (!token) return;
         }
 
         console.log("Token :", token);
 
         const load_sets_ = () => load_sets(config, token)
-
-        if (tsh_settings && tsh_settings.TOURNAMENT_URL){
-            config.event = config.event ?? tsh_settings.TOURNAMENT_URL;
+        if (tshUserSettings && tshUserSettings.TOURNAMENT_URL && !config.event){
+            config.event = tshUserSettings.TOURNAMENT_URL;
         }
 
-        if (!config.event) return;
+        if (!config.event) {
+            console.error("No event specified");
+            return;
+        };
+
         if (config.event.includes("start.gg")) config.event = stripURL(config.event);
 
         await load_sets_();
+        
         startingAnimation.restart();
         setInterval(() => {
             load_sets_();
