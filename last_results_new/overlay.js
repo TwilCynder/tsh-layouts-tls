@@ -1,5 +1,5 @@
 import { FitText } from "../includeTLS/DOMUtil.js";
-import { loadJSONOptional, loadSecrets, loadSettings, loadTSHUserSettings, SGGOGToken } from "../includeTLS/independent-script-util.js";
+import { loadSecrets, loadSettings, loadTSHUserSettings, SGGOGToken } from "../includeTLS/independent-script-util.js";
 
 const query = `         
     query Query($slug: String, $setNum: Int) {

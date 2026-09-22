@@ -11,5 +11,6 @@
             "logo-sponsor2"
         ]
     },
-    "current_logos_config" : "base"
+    "current_logos_config" : "base",
+    "TOS_addr": 5001
 }
