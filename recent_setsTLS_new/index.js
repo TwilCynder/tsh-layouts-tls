@@ -13,40 +13,39 @@ const default_config = {
     TOS_addr: 5001
 }
 
-function getPlayers(teams){
-  if (!teams["1"] || !teams["2"]) return false;
+function getPlayerParam(player, i){
+  if (player.id && player.id[0]) return `=${player.id[0]}`;
+  else if (player.name) return `Name=${player.name}`;
+  
+  return false;
+}
+
+function getPlayersParams(data){
+  const teams = data?.score?.[window.scoreboardNumber]?.team;
+  if (!teams || !teams["1"] || !teams["2"]) return false;
+
   const player1 = teams["1"].player["1"];
   const player2 = teams["2"].player["1"];
   if (!player1 || !player2) return false;
 
-  return [player1, player2];
+  const param1 = getPlayerParam(player1);
+  const param2 = getPlayerParam(player2);
+
+  if (!param1 || !param2) return false;
+
+  return "p1" + param1 + "&p2" + param2;
 }
 
 function scoreString(slot){
   return slot.score ?? (slot.placement == 1 ? "W" : "L");
 }
 
-async function contentHTML(players, resolver, addr){
-  if (!players){
-    console.warn("No players");
-    return "";
-  }
-
-  let params = [];
-  for (let i = 0; i < 2; i++){
-    let player = players[i];
-    if (player.id && player.id[0]) params.push(`p${i + 1}=${player.id[0]}`);
-    else if (player.name) params.push(`p${i + 1}Name=${player.name}`);
-    else {
-      console.warn("Player", i + 1, "has no id or name", player);
-    }
-  }
-
-  let result = await askTOS(addr, ...params);
-  if (!result) return "";
+async function contentHTML(params, addr){
+  let result = await askTOS(addr, params);
+  if (!result) return ["Couldn't fetch data"];
 
   let {h2h, ids: {id1, id2}} = result; 
-  if (!h2h) return "";
+  if (!h2h) return ["No match found"];
 
   console.log("Loaded H2H :", h2h, id1, id2);
 
@@ -63,11 +62,12 @@ async function contentHTML(players, resolver, addr){
       p2Total++;
     }
   }
-  $(".setcount").html(p1Total + " - " + p2Total);
+  $(".setcount").html();
 
   h2h = h2h.slice(0, 5);
 
   let html = "";
+  let loadedSets = []
   for (let i = 0; i < h2h.length; i++){
     const set = h2h[i];
     const inverted = set.inverted;
@@ -89,14 +89,11 @@ async function contentHTML(players, resolver, addr){
       </div>
     `
 
-    resolver.add(".s"+i+" .event-info", `
-      <div class="event-name">${set.event.tournament.name}</div>
-      <div class="additional-info">${set.event.name} - ${set.fullRoundText}</div>
-    `);
+    loadedSets.push(set);
     
   }
 
-  return html;
+  return [html, p1Total + " - " + p2Total, loadedSets];
 }
 
 LoadEverything().then(() => {
@@ -106,27 +103,52 @@ LoadEverything().then(() => {
 
   gsap.config({ nullTargetWarn: false, trialWarn: false });
 
-  let startingAnimation = gsap
-    .timeline({ paused: true })
-;
-
   Start = async () => {
 
   };
 
-  Update = async (event) => {
+
+  let firstUpdate = false;
+
+  Update = async (event) => { 
     let data = event.data;
     let oldData = event.oldData;
 
-    let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
+    const playerParams = getPlayersParams(data);
+    const oldPlayerParams = getPlayersParams(oldData);
 
-    if (!isTeams) {
-      const teams = data.score[window.scoreboardNumber].team;
-      const players = getPlayers(teams);
+    console.log(playerParams, oldPlayerParams)
 
-      const resolver = new ContentResolver();
-      $(".sets-container").html(await contentHTML(players, resolver, TOSAddr));
-      resolver.resolve();
+    if (playerParams == oldPlayerParams && firstUpdate) return; //if no difference and we have nothing displayed yet : skipping
+    firstUpdate = true;
+
+    //From this point, we are updating the page (even if it's to display nothing)
+
+    let result = await contentHTML(playerParams, TOSAddr);
+
+    //let isTeams = Object.keys(data.score[window.scoreboardNumber].team["1"].player).length > 1;
+
+    let [content = "", setCount = "", loadedSets = []] = result;
+    $(".sets-container").html(content ?? "");
+    SetInnerHtml($(".setcount"), setCount ?? "");
+    if (setCount){
+      const startingAnimation = gsap.timeline({paused: false});
+      loadedSets.forEach((set, i) => {
+        console.log(`.s${i} .event-info`)
+
+        SetInnerHtml($(`.s${i} .event-info`), `
+          <div class="event-name">${set.event.tournament.name}</div>
+          <div class="additional-info">${set.event.name} - ${set.fullRoundText}</div>
+        `)
+
+        startingAnimation.from(
+          $(".s"+i),
+          {x: -100, autoAlpha: 0, duration: 0.3},
+          0.2 + 0.2 * i
+        );
+      });
+      
+      startingAnimation.restart();
     }
 
   };
